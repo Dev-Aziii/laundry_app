@@ -13,32 +13,45 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            return view('user.home');
-        };
+            $usertype = Auth::user()->usertype;
 
+            if ($usertype == '1') {
+                return redirect()->route('admin');
+            } else {
+                return redirect()->route('user');
+            }
+        }
         return view('auth.login');
     }
 
     public function registration()
     {
         if (Auth::check()) {
-            return view('user.home');
-        };
+            return redirect()->route('user');
+        }
         return view('auth.registration');
     }
 
     public function loginPost(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required|min:6'
         ]);
 
         $credentials = $request->only('email', 'password');
+
         if (Auth::attempt($credentials)) {
-            return redirect()->intended(route('user'));
+            $usertype = Auth::user()->usertype;
+
+            if ($usertype == '1') {
+                return redirect()->route('admin');
+            } else {
+                return redirect()->route('user');
+            }
         }
-        return redirect(route('login'))->with('error', 'Invalid details.');
+
+        return redirect()->route('login')->with('error', 'Invalid email or password.');
     }
 
     public function registrationPost(Request $request)
@@ -46,27 +59,28 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'phone' => 'required',
+            'phone' => 'required|min:10',
             'address' => 'required',
-            'password' => 'required|min:6|confirmed', // Ensuring password confirmation
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $data = $request->only('name', 'email', 'phone', 'address');
         $data['password'] = Hash::make($request->password);
+        $data['usertype'] = '0';
 
         $user = User::create($data);
 
         if (!$user) {
-            return redirect(route('registration'))->with('error', 'Registration failed.');
+            return redirect()->route('registration')->with('error', 'Registration failed.');
         }
 
-        return redirect(route('login'))->with('success', 'Registration successful, you can now login');
+        return redirect()->route('login')->with('success', 'Registration successful. You can now log in.');
     }
 
     public function logout()
     {
         Session::flush();
         Auth::logout();
-        return redirect(route('user'));
+        return redirect()->route('user');
     }
 }
