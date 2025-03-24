@@ -18,7 +18,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi-telephone-fill me-3"></i>
-                                <span>{{ $user->phone }}</span>
+                                <span>+63 {{ $user->phone }}</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi-envelope-fill me-3"></i>

@@ -23,7 +23,7 @@
                                                     Php{{ number_format($service->price_per_kg, 2) }}
                                                 </p>
                                                 <p class="text-white mb-0">
-                                                    <i class="bi-clock-fill me-2"></i> {{ $service->duration }}
+                                                    <i class="bi-calendar-date-fill me-2"></i> {{ $service->duration }}
                                                 </p>
                                             </div>
                                         </div>
