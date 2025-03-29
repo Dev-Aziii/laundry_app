@@ -20,4 +20,15 @@ class HomeController extends Controller
 
         return redirect()->route('login')->with('error', 'Unauthorized access.');
     }
+
+    public function show()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to access this page.');
+        }
+
+        $user = Auth::user();
+
+        return view('profile.show', compact('user'));
+    }
 }

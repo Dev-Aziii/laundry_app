@@ -33,7 +33,7 @@
             </div>
 
             <!-- Main Content: Tabs -->
-            <div class="col-lg-8">
+            <div class="col-lg-8 mb-3">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="bookingTab" role="tablist">
@@ -102,12 +102,14 @@
                                         <input type="text" class="form-control" id="address" name="address"
                                             value="{{ old('address', $user->address) }}">
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-4">
                                         <label for="password" class="form-label">Password</label>
                                         <input type="password" class="form-control" id="password" name="password"
                                             placeholder="Enter new password (leave blank if unchanged)">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

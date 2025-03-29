@@ -13,6 +13,7 @@
     <link href="css/bootstrap-icons.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
+    <x-logout-modal />
 </head>
 
 <body>
@@ -20,6 +21,8 @@
 
     <!-- JAVASCRIPT FILES -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/animated-headline.js"></script>
 </body>
 
 </html>

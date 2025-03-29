@@ -29,8 +29,8 @@
                     @csrf
                     <div class="mb-3">
                         <label for="login-email" class="form-label">Email</label>
-                        <input id="login-email" class="form-control" type="email" name="email" value="{{ old('email') }}"
-                            required>
+                        <input id="login-email" class="form-control" type="email" name="email"
+                            value="{{ old('email') }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="login-password" class="form-label">Password</label>
@@ -50,4 +50,4 @@
             </div>
         </div>
     </div>
-@endsection 
+@endsection

@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout')
+@section('title', 'Washingmashing | Admin')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>ADMIN</h1>
-</body>
-
-</html>
+@section('content')
+    <div>
+        <h1>Admin</h1><br>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal"
+            onclick="event.stopPropagation();">
+            Logout
+        </button>
+    </div>
+@endsection
