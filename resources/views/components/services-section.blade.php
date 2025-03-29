@@ -60,8 +60,7 @@
                     </div>
                 </button>
             @else
-                <button class="custom-btn btn button button--atlas w-25" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">
+                <a class="custom-btn btn button button--atlas w-25" href="{{ route('login') }}">
                     <span>Book Now</span>
                     <div class="marquee" aria-hidden="true">
                         <div class="marquee__inner">
@@ -71,24 +70,8 @@
                             <span>Book Now</span>
                         </div>
                     </div>
-                </button>
+                </a>
             @endauth
-        </div>
-
-        <!-- Login Modal -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <p>You need to log in to book a laundry service.</p>
-                        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </div>
