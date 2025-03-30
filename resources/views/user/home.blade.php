@@ -50,6 +50,16 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('user') }}">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
                 @auth
                     <div class="dropdown ms-3">
                         <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button"
@@ -58,7 +68,8 @@
                             {{ Auth::user()->name }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.show') }}">Account</a></li>
+                            <li><a class="dropdown-item" href="#">Orders</a></li>
                             <li>
                                 <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal"
                                     data-bs-target="#logoutModal" onclick="event.stopPropagation();">
