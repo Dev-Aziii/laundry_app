@@ -16,10 +16,17 @@
 
                     <div class="col-lg-7 col-12 d-flex align-items-center">
                         <h1 class="text-white mb-0 me-3">Services Listing</h1>
-                        <a class="nav-link custom-btn custom-border-btn custom-btn-bg-white btn"
-                            href="{{ route('booking.page') }}">
-                            Book Now
-                        </a>
+                        @auth
+                            <a class="nav-link custom-btn custom-border-btn custom-btn-bg-white btn"
+                                href="{{ route('booking.page') }}">
+                                Book Now
+                            </a>
+                        @else
+                            <a class="nav-link custom-btn custom-border-btn custom-btn-bg-white btn"
+                                href="{{ route('login') }}?redirect_url={{ route('booking.page') }}">
+                                Book Now
+                            </a>
+                        @endauth
                     </div>
 
                     <div class="col-lg-4 col-12 d-flex justify-content-lg-end align-items-center ms-auto">
@@ -38,7 +45,6 @@
         <x-services-section />
 
     </main>
-
 
     <x-footer />
 @endsection

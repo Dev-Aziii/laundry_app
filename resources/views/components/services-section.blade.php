@@ -46,17 +46,32 @@
 
         <div class="text-center mt-4">
             @if (Request::routeIs('services.page'))
-                <a class="custom-btn btn button button--atlas w-25" href="{{ route('booking.page') }}">
-                    <span>Book Now</span>
-                    <div class="marquee" aria-hidden="true">
-                        <div class="marquee__inner">
-                            <span>Book Now</span>
-                            <span>Book Now</span>
-                            <span>Book Now</span>
-                            <span>Book Now</span>
+                @auth
+                    <a class="custom-btn btn button button--atlas w-25" href="{{ route('booking.page') }}">
+                        <span>Book Now</span>
+                        <div class="marquee" aria-hidden="true">
+                            <div class="marquee__inner">
+                                <span>Book Now</span>
+                                <span>Book Now</span>
+                                <span>Book Now</span>
+                                <span>Book Now</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                @else
+                    <a class="custom-btn btn button button--atlas w-25"
+                        href="{{ route('login') }}?redirect_url={{ route('booking.page') }}">
+                        <span>Book Now</span>
+                        <div class="marquee" aria-hidden="true">
+                            <div class="marquee__inner">
+                                <span>Book Now</span>
+                                <span>Book Now</span>
+                                <span>Book Now</span>
+                                <span>Book Now</span>
+                            </div>
+                        </div>
+                    </a>
+                @endauth
             @else
                 <a class="custom-btn btn button button--atlas w-25" href="{{ route('services.page') }}">
                     <span>View More</span>

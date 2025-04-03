@@ -44,6 +44,12 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $usertype = Auth::user()->usertype;
 
+            $redirectUrl = $request->input('redirect_url', null);
+
+            if ($redirectUrl) {
+                return redirect()->to($redirectUrl);
+            }
+
             if ($usertype == '1') {
                 return redirect()->route('admin');
             } else {
@@ -53,6 +59,8 @@ class AuthController extends Controller
 
         return redirect()->route('login')->with('error', 'Invalid email or password.');
     }
+
+
 
     public function registrationPost(Request $request)
     {

@@ -27,6 +27,9 @@
             <div class="card-body">
                 <form method="POST" action="{{ route('login.post') }}">
                     @csrf
+
+                    <input type="hidden" name="redirect_url" value="{{ request()->query('redirect_url') }}">
+
                     <div class="mb-3">
                         <label for="login-email" class="form-label">Email</label>
                         <input id="login-email" class="form-control" type="email" name="email"

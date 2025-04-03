@@ -154,5 +154,14 @@
                 progressBar.setAttribute("aria-valuenow", progress);
             }
         });
+
+        window.addEventListener('popstate', function(event) {
+            window.location.href = "{{ route('services.page') }}";
+        });
+
+        history.pushState(null, null, window.location.href);
+        window.onpopstate = function() {
+            window.history.go(1);
+        };
     </script>
 @endsection
