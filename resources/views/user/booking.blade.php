@@ -11,7 +11,6 @@
             </div>
             <div class="card shadow-lg">
                 <div class="card-body">
-                    <!-- Steps Navigation -->
                     <ul class="nav nav-pills nav-justified mb-4" id="bookingTabs">
                         <li class="nav-item">
                             <a class="nav-link active" id="step1-tab" data-bs-toggle="pill" href="#step1">
@@ -30,15 +29,12 @@
                         </li>
                     </ul>
 
-                    <!-- Progress Bar -->
                     <div class="progress mb-4">
                         <div class="progress-bar" id="progressBar" role="progressbar" style="width: 33%;" aria-valuenow="33"
                             aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
-                    <!-- Tab Content -->
                     <div class="tab-content">
-                        <!-- Step 1: Select Service -->
                         <div class="tab-pane fade show active" id="step1">
                             <h4 class="mb-3"><i class="bi bi-cart-check me-2"></i> Select Service</h4>
                             <p>Choose the items you want to book.</p>
@@ -61,7 +57,6 @@
                                 </div>
                             </form>
 
-                            <!-- Buttons (Bottom-Right) -->
                             <div class="d-flex justify-content-end mt-4">
                                 <button class="btn btn-primary next-step" data-next="step2">
                                     Next <i class="bi bi-arrow-right"></i>
@@ -69,7 +64,6 @@
                             </div>
                         </div>
 
-                        <!-- Step 2: Delivery Details -->
                         <div class="tab-pane fade" id="step2">
                             <h4 class="mb-3"><i class="bi bi-truck me-2"></i> Delivery Details</h4>
                             <p>Provide your delivery details.</p>
@@ -105,7 +99,6 @@
                                 </div>
                             </form>
 
-                            <!-- Buttons (Bottom-Right) -->
                             <div class="d-flex justify-content-end mt-4">
                                 <button class="btn btn-secondary prev-step me-2" data-prev="step1">
                                     <i class="bi bi-arrow-left"></i> Back
@@ -116,12 +109,10 @@
                             </div>
                         </div>
 
-                        <!-- Step 3: Finish -->
                         <div class="tab-pane fade" id="step3">
                             <h4 class="mb-3"><i class="bi bi-check-circle me-2"></i> Finish</h4>
                             <p>Thank you! Your booking is complete.</p>
 
-                            <!-- Buttons (Bottom-Right) -->
                             <div class="d-flex justify-content-end mt-4">
                                 <button class="btn btn-secondary prev-step me-2" data-prev="step2">
                                     <i class="bi bi-arrow-left"></i> Back
