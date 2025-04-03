@@ -3,9 +3,10 @@
 @section('title', 'WashingMashing | Account Settings')
 
 @section('content')
+    <x-header />
 
     <div class="container light-style flex-grow-1 container-p-y">
-        <h4 class="font-weight-bold py-3 mb-4">
+        <h4 class="font-weight-bold py-3">
             Account settings
         </h4>
 

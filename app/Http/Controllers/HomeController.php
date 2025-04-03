@@ -31,4 +31,14 @@ class HomeController extends Controller
 
         return view('profile.show', compact('user'));
     }
+
+    public function services()
+    {
+        return view('user.services');
+    }
+
+    public function booking()
+    {
+        return view('user.booking');
+    }
 }

@@ -19,6 +19,6 @@ class LaundryBookingForm extends Component
 
     public function render()
     {
-        return view('components.laundry-booking-form');
+        return view('user.booking');
     }
 }

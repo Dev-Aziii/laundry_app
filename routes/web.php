@@ -5,11 +5,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 
-// Home
+// Pages
 Route::get('/', [HomeController::class, 'user'])->name('user');
 Route::get('/admin', [HomeController::class, 'admin'])->name('admin')->middleware('auth');
 Route::get('/profile-user', [HomeController::class, 'show'])->name('profile.show')->middleware('auth');
-Route::get('/profile-user', [HomeController::class, 'show'])->name('profile.show')->middleware('auth');
+Route::get('/services', [HomeController::class, 'services'])->name('services.page');
+Route::get('/booking', [HomeController::class, 'booking'])->name(name: 'booking.page');
 
 // Authentication
 Route::get('/login', [AuthController::class, 'login'])->name('login');

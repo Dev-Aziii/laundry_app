@@ -9,9 +9,9 @@ class ServicesSection extends Component
 {
     public $services;
 
-    public function __construct()
+    public function __construct($limit = null)
     {
-        $this->services = Service::all();
+        $this->services = is_numeric($limit) ? Service::take($limit)->get() : Service::all();
     }
 
     public function render()

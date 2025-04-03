@@ -862,6 +862,30 @@ strong {
 }
 
 /*---------------------------------------
+  BANNER        
+-----------------------------------------*/
+.banner-section {
+    background-image: url("../images/avatar/customer-4.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    min-height: 340px;
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.banner-section .breadcrumb {
+    margin-bottom: 0;
+}
+
+.breadcrumb-item + .breadcrumb-item::before,
+.breadcrumb-item.active {
+    color: var(--white-color);
+}
+
+/*---------------------------------------
   TESTIMONIAL              
 -----------------------------------------*/
 .testimonial-section {
@@ -1251,6 +1275,65 @@ strong {
         font-size: 20px;
     }
 }
+/*---------------------------------------
+DROP DOWN              
+-----------------------------------------*/
+:root {
+    --white-color: #ffffff;
+    --primary-color: #205781;
+    --secondary-color: #4f83d1;
+    --section-bg-color: #f0f8ff;
+    --custom-btn-bg-color: #4f83d1;
+    --custom-btn-bg-hover-color: #548ec0;
+    --dark-color: #000000;
+    --p-color: #717275;
+    --border-color: #e9eaeb;
+    --link-hover-color: #69b4e9;
+    --body-font-family: "Poppins", sans-serif;
+}
+
+.btn-secondary.dropdown-toggle {
+    background-color: var(--primary-color);
+    border: none;
+    color: var(--white-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.btn-secondary.dropdown-toggle:hover {
+    background-color: var(--custom-btn-bg-hover-color);
+}
+
+.dropdown-menu {
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    color: var(--dark-color);
+    padding: 10px 15px;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: var(--primary-color) !important;
+    color: var(--white-color) !important;
+}
+
+.dropdown-item:hover {
+    background-color: var(--section-bg-color);
+    color: var(--link-hover-color);
+}
+
+.dropdown-item.text-danger {
+    color: #dc3545;
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: #f8d7da;
+    color: #a71d2a;
+}
 
 /*---------------------------------------
   PROFILE STYLES               
@@ -1335,4 +1418,24 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 
 .dark-style .account-settings-links .list-group-item.active {
     color: var(--white-color) !important;
+}
+
+/*---------------------------------------
+  BOOKING STYLES               
+-----------------------------------------*/
+
+.nav-pills .nav-link {
+    background-color: transparent;
+    color: var(--dark-color);
+    border-radius: var(--border-radius-small);
+    transition: all 0.3s;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.progress-bar {
+    background-color: var(--custom-btn-bg-color);
 }

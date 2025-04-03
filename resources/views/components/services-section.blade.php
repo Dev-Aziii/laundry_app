@@ -45,22 +45,8 @@
         </div>
 
         <div class="text-center mt-4">
-            @auth
-                <!-- If user is logged in, allow opening the form -->
-                <button class="custom-btn btn button button--atlas w-25 smoothscroll" data-bs-toggle="collapse"
-                    data-bs-target="#laundryBookingForm" onclick="scrollToSection('#laundryBookingForm')">
-                    <span>Book Now</span>
-                    <div class="marquee" aria-hidden="true">
-                        <div class="marquee__inner">
-                            <span>Book Now</span>
-                            <span>Book Now</span>
-                            <span>Book Now</span>
-                            <span>Book Now</span>
-                        </div>
-                    </div>
-                </button>
-            @else
-                <a class="custom-btn btn button button--atlas w-25" href="{{ route('login') }}">
+            @if (Request::routeIs('services.page'))
+                <a class="custom-btn btn button button--atlas w-25" href="{{ route('booking.page') }}">
                     <span>Book Now</span>
                     <div class="marquee" aria-hidden="true">
                         <div class="marquee__inner">
@@ -71,7 +57,19 @@
                         </div>
                     </div>
                 </a>
-            @endauth
+            @else
+                <a class="custom-btn btn button button--atlas w-25" href="{{ route('services.page') }}">
+                    <span>View More</span>
+                    <div class="marquee" aria-hidden="true">
+                        <div class="marquee__inner">
+                            <span>View More</span>
+                            <span>View More</span>
+                            <span>View More</span>
+                            <span>View More</span>
+                        </div>
+                    </div>
+                </a>
+            @endif
         </div>
 
     </div>
