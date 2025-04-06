@@ -44,9 +44,9 @@
                                     <label for="serviceType" class="form-label">Select Service</label>
                                     <select class="form-select" id="serviceType" name="serviceType" required>
                                         <option value="" disabled selected>Choose a service</option>
-                                        <option value="washing">Washing</option>
-                                        <option value="dry_cleaning">Dry Cleaning</option>
-                                        <option value="ironing">Ironing</option>
+                                        @foreach ($services as $service)
+                                            <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 

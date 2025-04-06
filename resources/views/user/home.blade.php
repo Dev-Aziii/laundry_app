@@ -6,6 +6,7 @@
 @endauth
 
 @section('content')
+<div id="home"></div>
 
 @if (session('success'))
     <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">

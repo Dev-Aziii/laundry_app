@@ -13,9 +13,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}" href="{{ route('user') }}">
-                        Home
-                    </a>
+                    @if (request()->routeIs('user'))
+                        <a class="nav-link active" href="#">
+                            Home
+                        </a>
+                    @else
+                        <a class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}" href="{{ route('user') }}">
+                            Home
+                        </a>
+                    @endif
+
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('services.page') ? 'active' : '' }}"

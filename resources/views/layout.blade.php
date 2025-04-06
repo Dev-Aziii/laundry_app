@@ -24,6 +24,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/animated-headline.js"></script>
+    <script src="js/navbar-scroll.js"></script>
 </body>
 
 </html>

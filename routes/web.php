@@ -6,11 +6,11 @@ use App\Http\Controllers\AuthController;
 
 
 // Pages
-Route::get('/', [HomeController::class, 'user'])->name('user');
-Route::get('/admin', [HomeController::class, 'admin'])->name('admin')->middleware('auth');
-Route::get('/profile-user', [HomeController::class, 'show'])->name('profile.show')->middleware('auth');
-Route::get('/services', [HomeController::class, 'services'])->name('services.page');
-Route::get('/booking', [HomeController::class, 'booking'])->name(name: 'booking.page');
+Route::get('/', [HomeController::class, 'index'])->name('user');
+Route::get('/admin', [HomeController::class, 'adminDashboard'])->name('admin')->middleware('auth');
+Route::get('/profile-user', [HomeController::class, 'userProfile'])->name('profile.show')->middleware('auth');
+Route::get('/services', [HomeController::class, 'servicesPage'])->name('services.page');
+Route::get('/booking', [HomeController::class, 'bookingPage'])->name(name: 'booking.page');
 
 // Authentication
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
