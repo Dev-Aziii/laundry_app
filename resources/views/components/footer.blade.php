@@ -7,14 +7,9 @@
                     <img src="images/bubbles.png" class="logo img-fluid" alt="">
                 </div>
 
-                <ul class="footer-menu d-flex flex-wrap ms-5">
-                    <li class="footer-menu-item"><a href="#" class="footer-menu-link">Home</a>
+                <ul class="footer-menu d-flex flex-wrap ms-2">
+                    <li class="footer-menu-item"><a href="#" class="footer-menu-link">WashingMashing</a>
                     </li>
-                    <li class="footer-menu-item"><a href="#intro-section" class="footer-menu-link">About Us</a>
-                    </li>
-                    <li class="footer-menu-item"><a href="#services-section" class="footer-menu-link">Services</a>
-                    </li>
-                    <li class="footer-menu-item"><a href="#" class="footer-menu-link">Contact</a></li>
                 </ul>
             </div>
 
