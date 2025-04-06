@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('image');
             $table->text('review');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

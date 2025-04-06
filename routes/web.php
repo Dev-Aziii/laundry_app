@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProfileController;
+
 
 // Pages
 Route::get('/', [HomeController::class, 'user'])->name('user');
@@ -13,8 +13,10 @@ Route::get('/services', [HomeController::class, 'services'])->name('services.pag
 Route::get('/booking', [HomeController::class, 'booking'])->name(name: 'booking.page');
 
 // Authentication
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'loginPost'])->name('login.post');
-Route::get('/registration', [AuthController::class, 'registration'])->name('registration');
-Route::post('/registration', [AuthController::class, 'registrationPost'])->name('registration.post');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'handleLogin'])->name('login.post');
+Route::get('/registration', [AuthController::class, 'showRegistrationForm'])->name('registration');
+Route::post('/registration', [AuthController::class, 'handleRegistration'])->name('registration.post');
+Route::get('/logout', [AuthController::class, 'logoutUser'])->name('logout')->middleware('auth');
+Route::put('/profile/update-details', [AuthController::class, 'updateUser'])->name('user.update-details');
+Route::put('/profile/update-password', [AuthController::class, 'updatePassword'])->name('user.update-password');

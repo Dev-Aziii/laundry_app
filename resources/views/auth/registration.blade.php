@@ -7,68 +7,66 @@
         <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
             <div class="card-header d-flex flex-column align-items-center mb-3">
                 <img src="images/bubbles.png" class="logo img-fluid" alt="Logo" style="max-width: 150px;">
-                
-                @if (session('error'))
-                    <div class="alert alert-danger text-center w-100 mt-2">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert alert-danger text-center w-100 mt-2">
-                        <ul class="mb-0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('registration.post') }}" class="needs-validation" novalidate>
+                <form method="POST" action="{{ route('registration.post') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="register-name" class="form-label">Full Name</label>
-                        <input id="register-name" class="form-control" type="text" name="name" value="{{ old('name') }}"
-                            required autofocus>
-                        <div class="invalid-feedback">Please enter your full name.</div>
+                        <input id="register-name" class="form-control @error('name') is-invalid @enderror" type="text"
+                            name="name" value="{{ old('name') }}" required autofocus>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="register-email" class="form-label">Email</label>
-                        <input id="register-email" class="form-control" type="email" name="email" value="{{ old('email') }}"
-                            required>
-                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                        <input id="register-email" class="form-control @error('email') is-invalid @enderror" type="email"
+                            name="email" value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="register-phone" class="form-label">Phone</label>
-                        <div class="input-group has-validation">
+                        <div class="input-group">
                             <span class="input-group-text">+63</span>
-                            <input id="register-phone" class="form-control" type="text" name="phone" pattern="\d{10}"
-                                value="{{ old('phone') }}" required>
-                            <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+                            <input id="register-phone" class="form-control @error('phone') is-invalid @enderror"
+                                type="text" name="phone" pattern="\d{10}" value="{{ old('phone') }}" required>
+                            @error('phone')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="register-address" class="form-label">Address</label>
-                        <input id="register-address" class="form-control" type="text" name="address"
-                            value="{{ old('address') }}" required>
-                        <div class="invalid-feedback">Please enter your address.</div>
+                        <input id="register-address" class="form-control @error('address') is-invalid @enderror"
+                            type="text" name="address" value="{{ old('address') }}" required>
+                        @error('address')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="register-password" class="form-label">Password</label>
-                        <input id="register-password" class="form-control" type="password" name="password" required>
-                        <div class="invalid-feedback">Please enter a password.</div>
+                        <input id="register-password" class="form-control @error('password') is-invalid @enderror"
+                            type="password" name="password" required>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="register-password-confirm" class="form-label">Confirm Password</label>
-                        <input id="register-password-confirm" class="form-control" type="password"
+                        <input id="register-password-confirm"
+                            class="form-control @error('password_confirmation') is-invalid @enderror" type="password"
                             name="password_confirmation" required>
-                        <div class="invalid-feedback">Please confirm your password.</div>
+                        @error('password_confirmation')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="d-flex justify-content-center">
@@ -82,33 +80,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        (function () {
-            'use strict';
-            var forms = document.querySelectorAll('.needs-validation');
-
-            Array.prototype.slice.call(forms).forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                });
-
-                form.querySelectorAll('input').forEach(function (input) {
-                    input.addEventListener('input', function () {
-                        if (input.checkValidity()) {
-                            input.classList.add('is-valid');
-                            input.classList.remove('is-invalid');
-                        } else {
-                            input.classList.add('is-invalid');
-                            input.classList.remove('is-valid');
-                        }
-                    });
-                });
-            });
-        })();
-    </script>
 @endsection

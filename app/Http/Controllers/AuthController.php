@@ -7,32 +7,31 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function showLoginForm()
     {
         if (Auth::check()) {
-            $usertype = Auth::user()->usertype;
-
-            if ($usertype == '1') {
-                return redirect()->route('admin');
-            } else {
-                return redirect()->route('user');
-            }
+            return Auth::user()->usertype == '1'
+                ? redirect()->route('admin')
+                : redirect()->route('user');
         }
+
         return view('auth.login');
     }
 
-    public function registration()
+    public function showRegistrationForm()
     {
         if (Auth::check()) {
             return redirect()->route('user');
         }
+
         return view('auth.registration');
     }
 
-    public function loginPost(Request $request)
+    public function handleLogin(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -42,32 +41,26 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $usertype = Auth::user()->usertype;
-
             $redirectUrl = $request->input('redirect_url', null);
 
             if ($redirectUrl) {
                 return redirect()->to($redirectUrl);
             }
 
-            if ($usertype == '1') {
-                return redirect()->route('admin');
-            } else {
-                return redirect()->route('user');
-            }
+            return Auth::user()->usertype == '1'
+                ? redirect()->route('admin')
+                : redirect()->route('user');
         }
 
         return redirect()->route('login')->with('error', 'Invalid email or password.');
     }
 
-
-
-    public function registrationPost(Request $request)
+    public function handleRegistration(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'phone' => 'required|min:10',
+            'phone' => 'required|digits:10',
             'address' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -85,10 +78,49 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Registration successful. You can now log in.');
     }
 
-    public function logout()
+    public function logoutUser()
     {
         Session::flush();
         Auth::logout();
         return redirect()->route('user');
+    }
+
+    public function updateUser(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'required|digits:10',
+            'address' => 'required|string|max:255',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+
+        return redirect()->route('user')->with('success', 'Changes saved successfully.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', 'string', 'min:6'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return back()->withErrors(['current_password' => 'The current password is incorrect.']);
+        }
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('user')->with('success', 'Changes saved successfully.');
     }
 }
