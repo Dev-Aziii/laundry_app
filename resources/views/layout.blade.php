@@ -9,9 +9,12 @@
     <!-- CSS FILES -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,400&display=swap"
         rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="css/bootstrap-icons.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="css/style.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
     <x-logout-modal />
 
@@ -21,10 +24,28 @@
     @yield('content')
 
     <!-- JAVASCRIPT FILES -->
-    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/animated-headline.js"></script>
     <script src="js/navbar-scroll.js"></script>
+    <script>
+        document.querySelectorAll('.load-page').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                let route = link.getAttribute('data-route');
+
+                fetch(route)
+                    .then(response => response.text())
+                    .then(html => {
+                        document.querySelector('.content').innerHTML = html;
+                    })
+                    .catch(err => console.error('Error loading page:', err));
+            });
+        });
+    </script>
 </body>
 
 </html>

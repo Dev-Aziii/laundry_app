@@ -1333,3 +1333,134 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 .progress-bar {
     background-color: var(--custom-btn-bg-color);
 }
+
+/*---------------------------------------
+  ADMIN NAVBAR            
+-----------------------------------------*/
+
+/* Navbar Styles (Admin only) */
+.admin-navbar {
+    height: 50px; /* Reduced height */
+    padding: 0 15px; /* Reduced padding */
+}
+
+/* Admin Navbar Logo and Text Size */
+.admin-navbar .navbar-brand {
+    font-size: 18px; /* Adjust text size */
+    display: flex;
+    align-items: center;
+}
+
+/* Admin Navbar Text Color */
+.admin-navbar .navbar-text {
+    color: #f1f1f1; /* Change to your desired color */
+}
+
+.admin-navbar .navbar-brand img {
+    width: 30px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Adjust space between logo and text */
+}
+
+/* Navbar Dropdown Divider */
+.admin-navbar .dropdown-divider {
+    border-top: 1px solid #ccc; /* Customize the color */
+}
+
+/*---------------------------------------
+  ADMIN SIDEBAR            
+-----------------------------------------*/
+.admin-sidebar {
+    height: 100vh;
+    width: 220px;
+    position: fixed;
+    background-color: #343a40;
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    top: 60px;
+    transition: width 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+/* Sidebar Links */
+.admin-sidebar a,
+.accordion-body a {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: none;
+}
+
+/* Icon Styling */
+.admin-sidebar a i,
+.accordion-body a i {
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+/* Active Link Only */
+.admin-sidebar a.active,
+.accordion-body a.active {
+    background-color: #495057;
+    color: #e74c3c;
+    padding-left: 20px;
+}
+
+/* Accordion Buttons - no hover or active styles */
+.accordion-button {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    color: white;
+    font-size: 14px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* Remove highlight on expanded state */
+.accordion-button:not(.collapsed) {
+    background-color: transparent;
+    color: white;
+}
+
+/* Accordion Styling */
+.accordion-item {
+    border: none;
+    background-color: transparent;
+    margin-bottom: 5px;
+}
+
+.accordion-body {
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+/* Accordion Icon */
+.accordion-button i {
+    margin-right: 10px;
+}
+
+/* Sidebar Content Area */
+.admin-sidebar .content {
+    margin-left: 220px;
+    padding: 15px;
+    top: 60px;
+}
+
+.accordion-button:focus,
+.accordion-button:active,
+.accordion-button:not(.collapsed):focus,
+.accordion-button:not(.collapsed):active {
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+    color: white;
+}
