@@ -1338,33 +1338,29 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
   ADMIN NAVBAR            
 -----------------------------------------*/
 
-/* Navbar Styles (Admin only) */
 .admin-navbar {
-    height: 50px; /* Reduced height */
-    padding: 0 15px; /* Reduced padding */
+    height: 50px;
+    padding: 0 15px;
 }
 
-/* Admin Navbar Logo and Text Size */
 .admin-navbar .navbar-brand {
-    font-size: 18px; /* Adjust text size */
+    font-size: 18px;
     display: flex;
     align-items: center;
 }
 
-/* Admin Navbar Text Color */
 .admin-navbar .navbar-text {
-    color: #f1f1f1; /* Change to your desired color */
+    color: #f1f1f1;
 }
 
 .admin-navbar .navbar-brand img {
-    width: 30px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 10px; /* Adjust space between logo and text */
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
 }
 
-/* Navbar Dropdown Divider */
 .admin-navbar .dropdown-divider {
-    border-top: 1px solid #ccc; /* Customize the color */
+    border-top: 1px solid #ccc;
 }
 
 /*---------------------------------------
@@ -1384,7 +1380,6 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     overflow-y: auto;
 }
 
-/* Sidebar Links */
 .admin-sidebar a,
 .accordion-body a {
     padding: 10px 15px;
@@ -1398,14 +1393,12 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     transition: none;
 }
 
-/* Icon Styling */
 .admin-sidebar a i,
 .accordion-body a i {
     margin-right: 12px;
     font-size: 16px;
 }
 
-/* Active Link Only */
 .admin-sidebar a.active,
 .accordion-body a.active {
     background-color: #495057;
@@ -1413,7 +1406,6 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     padding-left: 20px;
 }
 
-/* Accordion Buttons - no hover or active styles */
 .accordion-button {
     background-color: transparent;
     border: none;
@@ -1425,13 +1417,11 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     align-items: center;
 }
 
-/* Remove highlight on expanded state */
 .accordion-button:not(.collapsed) {
     background-color: transparent;
     color: white;
 }
 
-/* Accordion Styling */
 .accordion-item {
     border: none;
     background-color: transparent;
@@ -1443,12 +1433,10 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     padding-top: 5px;
 }
 
-/* Accordion Icon */
 .accordion-button i {
     margin-right: 10px;
 }
 
-/* Sidebar Content Area */
 .admin-sidebar .content {
     margin-left: 220px;
     padding: 15px;

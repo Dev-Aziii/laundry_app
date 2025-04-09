@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="images/bubbles.png" alt="Laundry Logo" class="navbar-logo">
-                <span class="navbar-text" style="color: #f1f1f1;">WashingMashing</span>
+                <span class="navbar-text">WashingMashing</span>
             </a>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -26,9 +26,8 @@
     </nav>
 
     <div class="sidebar bg-dark border-bottom border-body admin-sidebar" data-bs-theme="dark">
-        <a href="#" class="load-page" data-route="#"><i class="bi bi-cart"></i>Dashboard</a>
-
-        <a href="#" class="load-page" data-route="#"><i class="bi bi-cart"></i>Orders</a>
+        <a href="#"><i class="bi bi-cart"></i>Dashboard</a>
+        <a href="#"><i class="bi bi-cart"></i>Orders</a>
 
         <!-- Product Manage Accordion -->
         <div class="accordion" id="productManageAccordion">
@@ -53,7 +52,6 @@
             </div>
         </div>
 
-
         <!-- POS Manage Accordion -->
         <div class="accordion" id="posManageAccordion">
             <div class="accordion-item">
@@ -77,13 +75,17 @@
             </div>
         </div>
 
-
         <a href="#" class="load-page" data-route="#"><i class="bi bi-truck"></i>Order Tracking</a>
-
         <a href="#" class="load-page" data-route="#"><i class="bi bi-credit-card"></i>Customer</a>
         <a href="#" class="load-page" data-route="#"><i class="bi bi-file-earmark-bar-graph"></i>Reports</a>
-
         <a href="#" class="load-page" data-route="#"><i class="bi bi-person-lines-fill"></i>Employee Tasks</a>
         <a href="#" class="load-page" data-route="#"><i class="bi bi-calendar-check"></i>Shift Assignments</a>
+    </div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
+        </main>
     </div>
 @endsection
