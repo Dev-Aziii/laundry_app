@@ -81,11 +81,4 @@
         <a href="#" class="load-page" data-route="#"><i class="bi bi-person-lines-fill"></i>Employee Tasks</a>
         <a href="#" class="load-page" data-route="#"><i class="bi bi-calendar-check"></i>Shift Assignments</a>
     </div>
-
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-                <h1 class="mt-4">Dashboard</h1>
-        </main>
-    </div>
 @endsection
