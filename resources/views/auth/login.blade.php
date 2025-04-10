@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'WashingMashing | Login')
+@section('title', 'Login | WashingMashing')
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center vh-100">
@@ -53,4 +53,5 @@
             </div>
         </div>
     </div>
+
 @endsection
