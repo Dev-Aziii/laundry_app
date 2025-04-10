@@ -40,22 +40,59 @@
                             <p>Choose the items you want to book.</p>
 
                             <form id="orderForm">
-                                <div class="mb-3">
-                                    <label for="serviceType" class="form-label">Select Service</label>
-                                    <select class="form-select" id="serviceType" name="serviceType" required>
-                                        <option value="" disabled selected>Choose a service</option>
-                                        @foreach ($services as $service)
-                                            <option value="{{ $service->id }}">{{ $service->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <div class="accordion mb-4 shadow-sm rounded booking-accordion" id="bookingAccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingBooking">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseBooking"
+                                                aria-expanded="false" aria-controls="collapseBooking">
+                                                <h5>Services</h5>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseBooking" class="accordion-collapse collapse"
+                                            aria-labelledby="headingBooking">
+                                            <div class="accordion-body">
+                                                @foreach ($services as $service)
+                                                    <div
+                                                        class="d-flex justify-content-between align-items-center border-bottom px-4 py-4 booking-service-card">
+                                                        <!-- Radio Selector -->
+                                                        <div class="form-check me-3">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="serviceType" id="service{{ $service->id }}"
+                                                                value="{{ $service->id }}" required>
+                                                        </div>
 
-                                <div class="mb-3">
-                                    <label for="quantity" class="form-label">Quantity</label>
-                                    <input type="number" class="form-control" id="quantity" name="quantity" min="1"
-                                        required>
+                                                        <!-- Service Info -->
+                                                        <label for="service{{ $service->id }}"
+                                                            class="d-flex flex-grow-1 justify-content-between align-items-center text-start w-100">
+                                                            <div class="me-3 flex-grow-1">
+                                                                <div class="fw-bold fs-5 mb-2">{{ $service->service_name }}
+                                                                </div>
+                                                                <div class="text-muted mb-1">
+                                                                    <strong>₱{{ number_format($service->price_per_kg, 2) }}/kg</strong>
+                                                                    <i class="bi bi-clock ms-2"></i>
+                                                                    {{ $service->duration }}d
+                                                                </div>
+                                                                <div class="small text-muted">{{ $service->description }}
+                                                                </div>
+                                                            </div>
+
+                                                            @if ($service->image1)
+                                                                <img src="{{ $service->image1 }}"
+                                                                    alt="{{ $service->service_name }}" class="img-thumbnail"
+                                                                    style="width: 100px; height: 100px; object-fit: cover;">
+                                                            @endif
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
+
+
+
 
                             <div class="d-flex justify-content-end mt-4">
                                 <button class="btn btn-primary next-step" data-next="step2">
@@ -129,6 +166,7 @@
     </main>
 
     <script>
+        //progress bar
         document.addEventListener("DOMContentLoaded", function() {
             let progressBar = document.getElementById("progressBar");
 
@@ -155,6 +193,7 @@
             }
         });
 
+        //return view
         window.addEventListener('popstate', function(event) {
             window.location.href = "{{ route('services.page') }}";
         });

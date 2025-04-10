@@ -31,21 +31,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/animated-headline.js"></script>
     <script src="js/navbar-scroll.js"></script>
-    <script>
-        document.querySelectorAll('.load-page').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                let route = link.getAttribute('data-route');
 
-                fetch(route)
-                    .then(response => response.text())
-                    .then(html => {
-                        document.querySelector('.content').innerHTML = html;
-                    })
-                    .catch(err => console.error('Error loading page:', err));
-            });
-        });
-    </script>
 </body>
 
 </html>
