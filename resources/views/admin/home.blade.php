@@ -26,7 +26,7 @@
     </nav>
 
     <div class="sidebar bg-dark border-bottom border-body admin-sidebar" data-bs-theme="dark">
-        <a href="#"><i class="bi bi-cart"></i>Dashboard</a>
+        <a href="#"><i class="bi bi-cart"></i>Dashboardsss</a>
         <a href="#"><i class="bi bi-cart"></i>Orders</a>
 
         <!-- Product Manage Accordion -->
