@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'WashingMashing | Booking')
+@section('title', 'Booking | WashingMashing')
 
 @section('content')
     <x-header />

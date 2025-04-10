@@ -1,8 +1,8 @@
 @extends('layout')
 @auth
-    @section('title', 'WashingMashing | Home')
+    @section('title', 'Home | WashingMashing')
 @else
-@section('title', 'WashingMashing | Guest')
+@section('title', 'WashingMashing')
 @endauth
 
 @section('content')

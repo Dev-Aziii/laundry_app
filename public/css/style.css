@@ -783,7 +783,7 @@ strong {
   TESTIMONIAL              
 -----------------------------------------*/
 .testimonial-section {
-    background-image: url("../images/avatar/customer-1.jpg");
+    background-image: url("../images/avatar/water2.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -1416,7 +1416,7 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 -----------------------------------------*/
 .admin-sidebar {
     height: 100vh;
-    width: 220px;
+    width: 240px;
     position: fixed;
     background-color: #343a40;
     color: white;
@@ -1499,4 +1499,23 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     box-shadow: none;
     background-color: transparent;
     color: white;
+}
+
+/*---------------------------------------
+  ORDER STYLE       
+-----------------------------------------*/
+
+.action-col {
+    width: 120px;
+    min-width: 120px;
+}
+
+.order-btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.order-btn i {
+    font-size: 1rem;
 }

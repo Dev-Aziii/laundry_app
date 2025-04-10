@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Washingmashing | Admin')
+@section('title', 'Admin | WashingMashing')
 
 @section('content')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body admin-navbar" data-bs-theme="dark"

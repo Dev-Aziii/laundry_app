@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'WashingMashing | Services')
+@section('title', 'Services | WashingMashing')
 
 @section('content')
     <x-header />

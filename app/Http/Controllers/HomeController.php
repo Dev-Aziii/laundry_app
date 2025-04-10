@@ -42,4 +42,10 @@ class HomeController extends Controller
         $services = Service::all();
         return view('user.booking', compact('services'));
     }
+
+    public function ordersPage()
+    {
+        $services = Service::all();
+        return view('user.orders');
+    }
 }

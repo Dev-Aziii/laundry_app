@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'WashingMashing | Registration')
+@section('title', 'Registration | WashingMashing')
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center vh-100">
