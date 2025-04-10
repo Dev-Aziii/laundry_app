@@ -1334,6 +1334,54 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     background-color: var(--custom-btn-bg-color);
 }
 
+.booking-accordion {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.booking-accordion .accordion-item {
+    background-color: white;
+    border: none;
+}
+
+.booking-accordion .accordion-button {
+    font-size: 1.25rem;
+    padding: 1rem 1.5rem;
+    background-color: white;
+    color: var(--dark-color) !important;
+    border-radius: 0;
+}
+
+.booking-service-card {
+    background-color: white;
+}
+
+.booking-service-card:hover {
+    background-color: #e2e3e4;
+    transition: background-color 0.3s ease;
+}
+
+.booking-accordion .form-check-input {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #007bff; /* Blue border */
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.booking-accordion .form-check-input:checked {
+    background-color: #007bff;
+    border-color: #0056b3;
+}
+
+.booking-accordion .form-check-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5);
+}
+
 /*---------------------------------------
   ADMIN NAVBAR            
 -----------------------------------------*/
