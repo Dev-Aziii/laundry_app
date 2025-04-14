@@ -11,7 +11,7 @@ Route::get('/admin', [HomeController::class, 'adminDashboard'])->name('admin')->
 Route::get('/profile-user', [HomeController::class, 'userProfile'])->name('profile.show')->middleware('auth');
 Route::get('/services', [HomeController::class, 'servicesPage'])->name('services.page');
 Route::get('/booking', [HomeController::class, 'bookingPage'])->name(name: 'booking.page');
-Route::get('/orders', [HomeController::class, 'ordersPage'])->name(name: 'orders.page');
+Route::get('/orders', [HomeController::class, 'ordersPage'])->name(name: 'Userorders.page');
 
 // Authentication
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -23,15 +23,29 @@ Route::put('/profile/update-details', [AuthController::class, 'updateUser'])->na
 Route::put('/profile/update-password', [AuthController::class, 'updatePassword'])->name('user.update-password');
 
 //admin page
-Route::get('/admin/dashboard', function () {return view('admin.dashboard');})->name('dashboard.page');
-Route::get('/admin/adminservices', function () {return view('admin.adminservices');})->name('adminservices.page');
-Route::get('/admin/products', function () {return view('admin.products');})->name('products.page');
-Route::get('/admin/orders', function () {return view('admin.orders');})->name('orders.page');
-Route::get('/admin/tracking', function () {return view('admin.tracking');})->name('tracking.page');
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('dashboard.page');
+Route::get('/admin/adminservices', function () {
+    return view('admin.adminservices');
+})->name('adminservices.page');
+Route::get('/admin/products', function () {
+    return view('admin.products');
+})->name('products.page');
+Route::get('/admin/orders', function () {
+    return view('admin.orders');
+})->name('orders.page');
+Route::get('/admin/tracking', function () {
+    return view('admin.tracking');
+})->name('tracking.page');
 
-Route::get('/admin/customer', function () {return view('admin.customer');})->name('customer.page');
+Route::get('/admin/customer', function () {
+    return view('admin.customer');
+})->name('customer.page');
 
-Route::get('/admin/reports', function () {return view('admin.reports');})->name('reports.page');
+Route::get('/admin/reports', function () {
+    return view('admin.reports');
+})->name('reports.page');
 
 Route::get('/admin/tasks', function () {
     return view('admin.tasks');
@@ -40,4 +54,3 @@ Route::get('/admin/tasks', function () {
 Route::get('/admin/shifts', function () {
     return view('admin.shifts');
 })->name('shift.page');
-
