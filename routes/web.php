@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 
-
-// Pages
+// User Pages
 Route::get('/', [HomeController::class, 'index'])->name('user');
 Route::get('/admin', [HomeController::class, 'adminDashboard'])->name('admin')->middleware('auth');
 Route::get('/profile-user', [HomeController::class, 'userProfile'])->name('profile.show')->middleware('auth');
@@ -38,7 +37,6 @@ Route::get('/admin/orders', function () {
 Route::get('/admin/tracking', function () {
     return view('admin.tracking');
 })->name('tracking.page');
-
 Route::get('/admin/customer', function () {
     return view('admin.customer');
 })->name('customer.page');
