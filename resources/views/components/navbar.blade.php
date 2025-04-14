@@ -53,7 +53,8 @@
                             <li><a class="dropdown-item {{ request()->routeIs('profile.show') ? 'active' : '' }}"
                                     href="{{ route('profile.show') }}">
                                     Account</a></li>
-                            <li><a class="dropdown-item" href="">Orders</a></li>
+                            <li><a class="dropdown-item {{ request()->routeIs('profile.show') ? 'active' : '' }}"
+                                    href="{{ route('orders.page') }}">Orders</a></li>
                             <li>
                                 <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal"
                                     data-bs-target="#logoutModal" onclick="event.stopPropagation();">

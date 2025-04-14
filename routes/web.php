@@ -11,6 +11,7 @@ Route::get('/admin', [HomeController::class, 'adminDashboard'])->name('admin')->
 Route::get('/profile-user', [HomeController::class, 'userProfile'])->name('profile.show')->middleware('auth');
 Route::get('/services', [HomeController::class, 'servicesPage'])->name('services.page');
 Route::get('/booking', [HomeController::class, 'bookingPage'])->name(name: 'booking.page');
+Route::get('/orders', [HomeController::class, 'ordersPage'])->name(name: 'orders.page');
 
 // Authentication
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'WashingMashing | Account Settings')
+@section('title', 'Account Settings | WashingMashing')
 
 @section('content')
     <x-header />
@@ -12,8 +12,14 @@
         }
     @endphp
 
-    <div class="container light-style flex-grow-1 container-p-y">
-        <h4 class="font-weight-bold py-3">Account settings</h4>
+    <div class="container light-style flex-grow-1 container-p-y mt-4">
+        <div class="mb-0">
+            <a href="{{ route('user') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-arrow-left"></i> Back to home
+            </a>
+        </div>
+        <br>
+        <h4 class="font-weight-bold pd-3">Account settings</h4>
 
         <div class="card overflow-hidden">
             <div class="row g-0 row-bordered row-border-light">
