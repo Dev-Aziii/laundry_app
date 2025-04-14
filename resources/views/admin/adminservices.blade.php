@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-end  min-vh-100 pt-2 pe-5">
-    <div class="card shadow-lg p-4 rounded-4 border-0 mt-5" style="width: 80%;">
+<div class="d-flex justify-content-end pt-5">
+    <div class="card shadow-lg p-4 rounded-4 border-0 mt-5" style="width: 82%;">
             <!-- Add Service Button -->
             <div class="text-end">
                 <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#addServiceModal">
