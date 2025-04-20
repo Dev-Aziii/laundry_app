@@ -50,7 +50,7 @@
 
         <div class="d-flex align-items-center mb-3 mt-4">
             <div>
-                <label for="quantity" class="form-label me-2">Quantity</label>
+                <label for="quantity" class="form-label me-2">Quantity(kg)</label>
                 <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1"
                     required style="width: 100px;">
             </div>
@@ -61,11 +61,12 @@
         </div>
     </form>
 
-    <div class="d-flex justify-content-end  mt-4">
+    <div class="d-flex justify-content-center mt-4">
         <button type="button" class="btn btn-primary next-step" data-next="#step2">
             Next <i class="bi bi-arrow-right"></i>
         </button>
     </div>
+
 
 
     <script>
@@ -114,6 +115,8 @@
                 document.getElementById('summarySubtotal').textContent = subtotal.toFixed(2);
                 document.getElementById('summaryPickupFee').textContent = pickupFee.toFixed(2);
                 document.getElementById('summaryGrandTotal').textContent = grandTotal.toFixed(2);
+                document.getElementById('serviceIdInput').textContent = selectedServiceId;
+                document.getElementById('quantityInput').textContent = quantity;
 
                 const nextTabTrigger = document.querySelector(this.dataset.next + '-tab');
                 const nextTab = new bootstrap.Tab(nextTabTrigger);

@@ -18,4 +18,9 @@ class Service extends Model
         'image2',
         'duration'
     ];
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
 }

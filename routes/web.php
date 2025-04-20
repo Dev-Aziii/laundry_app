@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
+
+//order
+Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('placeOrder');
 
 // User Pages
 Route::get('/', [HomeController::class, 'index'])->name('user');

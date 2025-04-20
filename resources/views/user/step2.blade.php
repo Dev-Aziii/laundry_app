@@ -1,7 +1,10 @@
 <h4 class="mb-3"><i class="bi bi-truck me-2"></i> Delivery Details</h4>
 <p>Provide your delivery details.</p>
 
-<form id="deliveryForm">
+<form id="deliveryForm" method="POST" action="{{ route('placeOrder') }}">
+    @csrf
+    <input type="hidden" id="serviceIdInput" name="serviceIdInput">
+    <input type="hidden" id="quantityInput" name="quantityInput">
     <div class="mb-3">
         <label for="name" class="form-label">Full Name</label>
         <input type="text" class="form-control" id="name" name="name" required>
@@ -14,12 +17,12 @@
 
     <div class="mb-3">
         <label for="address" class="form-label">Pick-Up Address</label>
-        <textarea class="form-control" id="pickupAddress" name="address" rows="2" required></textarea>
+        <textarea class="form-control" id="pickupAddress" name="pick_up_address" rows="2" required></textarea>
     </div>
 
     <div class="mb-5">
         <label for="address" class="form-label">Delivery Address</label>
-        <textarea class="form-control" id="deliveryAddress" name="address" rows="2" required></textarea>
+        <textarea class="form-control" id="deliveryAddress" name="deliveryAddress" rows="2" required></textarea>
     </div>
     <hr>
 
@@ -36,12 +39,13 @@
                         <h2 class="h5 px-4 py-3 accordion-header d-flex justify-content-between align-items-center">
                             <div class="form-check w-100 collapsed" data-bs-toggle="collapse"
                                 data-bs-target="#collapseCOD" aria-expanded="false">
-                                <input class="form-check-input" type="radio" name="payment" id="paymentCOD" checked>
+                                <input class="form-check-input" type="radio" name="paymentCOD" id="paymentCOD"
+                                    checked>
                                 <label class="form-check-label pt-1" for="paymentCOD">
                                     Cash On Delivery
                                 </label>
                             </div>
-                            <span><i class="fa-solid fa-truck-fast"></i><!-- Credit card icon here -->
+                            <span><i class="fa-solid fa-truck-fast"></i>
                             </span>
                         </h2>
                         <div id="collapseCOD" class="accordion-collapse collapse" data-bs-parent="#accordionPayment">
@@ -56,7 +60,7 @@
                         <h2 class="h5 px-4 py-3 accordion-header d-flex justify-content-between align-items-center">
                             <div class="form-check w-100 collapsed" data-bs-toggle="collapse"
                                 data-bs-target="#collapseCC" aria-expanded="false">
-                                <input class="form-check-input" type="radio" name="payment" id="payment1">
+                                <input class="form-check-input" type="radio" name="payment1" id="payment1">
                                 <label class="form-check-label pt-1" for="payment1">
                                     Credit Card
                                 </label>
@@ -100,7 +104,7 @@
                         <h2 class="h5 px-4 py-3 accordion-header d-flex justify-content-between align-items-center">
                             <div class="form-check w-100 collapsed" data-bs-toggle="collapse"
                                 data-bs-target="#collapsePP" aria-expanded="false">
-                                <input class="form-check-input" type="radio" name="payment" id="payment2">
+                                <input class="form-check-input" type="radio" name="payment2" id="payment2">
                                 <label class="form-check-label pt-1" for="payment2">
                                     <svg width="103" height="25" xmlns="http://www.w3.org/2000/svg">
                                         <g fill="none" fill-rule="evenodd">
@@ -172,13 +176,13 @@
         </div>
     </div>
 
-</form>
+    <div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-secondary prev-step me-2" data-prev="step1">
+            <i class="bi bi-arrow-left"></i> Back
+        </button>
+        <button class="btn btn-success next-step" type="submit">
+            Place Order <i class="bi bi-check-lg"></i>
+        </button>
+    </div>
 
-<div class="d-flex justify-content-end mt-4">
-    <button class="btn btn-secondary prev-step me-2" data-prev="step1">
-        <i class="bi bi-arrow-left"></i> Back
-    </button>
-    <button class="btn btn-primary next-step" data-next="step3">
-        Next <i class="bi bi-arrow-right"></i>
-    </button>
-</div>
+</form>
