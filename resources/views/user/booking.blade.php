@@ -24,7 +24,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="step3-tab" data-bs-toggle="pill" href="#step3">
-                                <i class="bi bi-check-circle me-2"></i> 3. Finish
+                                <i class="bi bi-check-circle me-2"></i> 3. Order Details
                             </a>
                         </li>
                     </ul>
