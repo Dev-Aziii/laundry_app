@@ -12,7 +12,6 @@ class OrderController extends Controller
 {
     public function placeOrder(Request $request)
     {
-        // Validate the input
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
@@ -22,25 +21,35 @@ class OrderController extends Controller
             'quantityInput' => 'required|integer',
         ]);
 
-        // Create a new order
+        $ref_no = $this->generateUniqueRefNo();
+
         $order = Order::create([
             'user_id' => Auth::id(),
-            'ref_no' => strtoupper(Str::random(10)),
+            'ref_no' => $ref_no,
             'status' => 'pending',
         ]);
 
-        // Create the order details
         OrderDetail::create([
-            'order_id' => $order->id, // FK to the Order
-            'service_id' => $request->input('serviceIdInput'),
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'pick_up_address' => $request->input('pick_up_address'),
-            'delivery_address' => $request->input('deliveryAddress'),
-            'quantity' => $request->input('quantityInput'),
+            'order_id' => $order->id,
+            'service_id' => $request->serviceIdInput,
+            'name' => $request->name,
+            'email' => $request->email,
+            'pick_up_address' => $request->pick_up_address,
+            'delivery_address' => $request->deliveryAddress,
+            'quantity' => $request->quantityInput,
         ]);
 
-        // Redirect to the user page
         return redirect()->route('user');
+    }
+
+    private function generateUniqueRefNo()
+    {
+        do {
+            $date = now()->format('Ymd');
+            $random = strtoupper(Str::random(5));
+            $ref_no = 'ORD' . $date . '-' . $random;
+        } while (Order::where('ref_no', $ref_no)->exists());
+
+        return $ref_no;
     }
 }

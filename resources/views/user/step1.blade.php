@@ -115,8 +115,8 @@
                 document.getElementById('summarySubtotal').textContent = subtotal.toFixed(2);
                 document.getElementById('summaryPickupFee').textContent = pickupFee.toFixed(2);
                 document.getElementById('summaryGrandTotal').textContent = grandTotal.toFixed(2);
-                document.getElementById('serviceIdInput').textContent = selectedServiceId;
-                document.getElementById('quantityInput').textContent = quantity;
+                document.getElementById('serviceIdInput').value = selectedServiceId;
+                document.getElementById('quantityInput').value = quantity;
 
                 const nextTabTrigger = document.querySelector(this.dataset.next + '-tab');
                 const nextTab = new bootstrap.Tab(nextTabTrigger);
