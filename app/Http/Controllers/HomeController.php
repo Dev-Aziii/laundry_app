@@ -45,7 +45,6 @@ class HomeController extends Controller
 
     public function ordersPage()
     {
-        $services = Service::all();
         return view('user.orders');
     }
 }

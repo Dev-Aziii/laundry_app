@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = Order::with(['orderDetails.service'])
+            ->where('user_id', Auth::id())
+            ->get();
+
+        return view('user.orders', compact('orders'));
+    }
     public function placeOrder(Request $request)
     {
         $request->validate([
