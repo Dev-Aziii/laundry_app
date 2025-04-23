@@ -1,30 +1,29 @@
 <div class="d-flex justify-content-end pt-5">
     <div class="card shadow-lg p-4 rounded-4 border-0 mt-5" style="width: 82%;">
-            <!-- Add Service Button -->
-            <div class="text-end">
-                <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#addServiceModal">
-                    <i class="bi bi-plus-circle"></i> Add Service
-                </button>
-            </div>
+        <!-- Add Service Button -->
+        <div class="text-end">
+            <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+                <i class="bi bi-plus-circle"></i> Add Service
+            </button>
+        </div>
 
-            <!-- Service Table -->
-            <div class="table-responsive mt-3">
-                <table class="table table-bordered table-hover text-center">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Service Name</th>
-                            <th>Thumbnail</th> 
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="serviceTableBody">
-                        <!-- Dynamic Rows Here -->
-                    </tbody>
-                </table>
-            </div>
+        <!-- Service Table -->
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-hover text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>Service Name</th>
+                        <th>Thumbnail</th> 
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="serviceTableBody">
+                    <!-- Dynamic Rows Here -->
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -74,10 +73,6 @@
     </div>
 </div>
 
-<!-- Bootstrap and jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
     $(document).ready(function () {
         // Handle file input change event to show thumbnail preview
@@ -103,44 +98,23 @@
                 $("#serviceTableBody").append(`
                     <tr>
                         <td><strong>${newService}</strong></td>
-                        <td>${thumbnailSrc ? `<img src="${thumbnailSrc}" class="img-thumbnail" style="max-width: 100px;">` : "No Image"}</td>
+                        <td><img src="${thumbnailSrc}" class="img-fluid" style="max-width: 80px;" /></td>
                         <td>${newDescription}</td>
-                        <td>P${parseFloat(newPrice).toFixed(2)}</td>
+                        <td>P${newPrice}</td>
+                        <td><span class="badge bg-${newStatus === 'Active' ? 'success' : 'danger'}">${newStatus}</span></td>
                         <td>
-                            <select class="form-select form-select-sm status-dropdown">
-                                <option value="Active" ${newStatus === "Active" ? "selected" : ""}>Active</option>
-                                <option value="Inactive" ${newStatus === "Inactive" ? "selected" : ""}>Inactive</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-warning edit-service"><i class="bi bi-pencil"></i></button>
-                            <button class="btn btn-sm btn-danger delete-service"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editServiceModal">
+                                <i class="bi bi-pencil"></i> Edit
+                            </button>
                         </td>
                     </tr>
                 `);
 
-                // Reset fields after adding
-                $("#newService").val(""); 
-                $("#newDescription").val(""); 
-                $("#newPrice").val(""); 
-                $("#newStatus").val("Active");
-                $("#newThumbnail").val("");
-                $("#thumbnailPreview").attr("src", "").addClass("d-none");
-
-              
-            } else {
-                alert("Please enter a valid service name, description, and price.");
+                $("#addServiceModal").modal('hide');
+                $("#addServiceForm")[0].reset();
+                $("#thumbnailPreview").addClass("d-none");
+                $('#addProductModal').modal('hide');
             }
-        });
-
-        // Delete service
-        $(document).on("click", ".delete-service", function () {
-            $(this).closest("tr").remove();
-        });
-
-        // Placeholder for edit functionality
-        $(document).on("click", ".edit-service", function () {
-            alert("Edit feature coming soon!");
         });
     });
 </script>
