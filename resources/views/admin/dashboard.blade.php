@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-end pt-5">
     <div class="card shadow-lg p-4 rounded-4 border-0 mt-5" style="width: 82%;"><!DOCTYPE html>
             <div class="container-fluid py-4">
-                <h1 class="mb-4">Dashboard / Dashboard</h1>
+                <h5 class="mb-4">Dashboard / Dashboard</h5>
                 
                 <!-- Revenue Card -->
                 <div class="card revenue-card mb-4">
@@ -121,3 +121,5 @@
                     </div>
                 </div>
             </div>
+
+            
