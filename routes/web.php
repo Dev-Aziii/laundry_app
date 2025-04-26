@@ -30,18 +30,27 @@ Route::put('/profile/update-password', [AuthController::class, 'updatePassword']
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('dashboard.page');
+    
 Route::get('/admin/adminservices', function () {
     return view('admin.adminservices');
 })->name('adminservices.page');
+
 Route::get('/admin/products', function () {
     return view('admin.products');
 })->name('products.page');
+
 Route::get('/admin/orders', function () {
     return view('admin.orders');
 })->name('orders.page');
+
+Route::get('/admin/pos', function () {
+    return view('admin.pos');
+})->name('pos.page');
+
 Route::get('/admin/tracking', function () {
     return view('admin.tracking');
 })->name('tracking.page');
+
 Route::get('/admin/customer', function () {
     return view('admin.customer');
 })->name('customer.page');
