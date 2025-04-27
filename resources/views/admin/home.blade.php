@@ -66,10 +66,9 @@
                     <div id="collapsePosManage" class="accordion-collapse collapse" aria-labelledby="headingPosManage"
                         data-bs-parent="#posManageAccordion">
                         <div class="accordion-body">
-                            <a href="#" class="load-page" data-route="{{ route('adminservices.page') }}">
-                                <i class="bi bi-gear"></i> Services
+                            <a href="#" class="load-page" data-route="{{ route('pos.page') }}">
+                                <i class="bi bi-gear"></i> POS
                             </a>
-                    
                         </div>
                     </div>
                 </div>
