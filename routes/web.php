@@ -47,6 +47,10 @@ Route::get('/admin/pos', function () {
     return view('admin.pos');
 })->name('pos.page');
 
+Route::get('/admin/sales', function () {
+    return view('admin.sales');
+})->name('sales.page');
+
 Route::get('/admin/tracking', function () {
     return view('admin.tracking');
 })->name('tracking.page');

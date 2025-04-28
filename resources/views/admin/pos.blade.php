@@ -84,7 +84,6 @@
                                 <button class="btn btn-success py-3 fs-5">
                                     <i class="fas fa-check-circle me-2"></i> Confirm Order
                                 </button>
-                                <button class="btn btn-outline-danger">Cancel Order</button>
                             </div>
                         </div>
                     </div>
