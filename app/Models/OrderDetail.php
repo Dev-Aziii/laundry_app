@@ -18,13 +18,11 @@ class OrderDetail extends Model
         'quantity',
     ];
 
-    // Relationship with the Order model
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
 
-    // Relationship with the Service model
     public function service()
     {
         return $this->belongsTo(Service::class);

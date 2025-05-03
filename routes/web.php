@@ -7,14 +7,18 @@ use App\Http\Controllers\OrderController;
 
 //order
 Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('placeOrder');
-Route::get('/orders', [OrderController::class, 'index'])->name(name: 'Userorders.page');
+Route::get('/orders', [OrderController::class, 'order'])->name(name: 'Userorders.page');
+Route::get('/summary', [OrderController::class, 'summary'])->name(name: 'summary.page');
+Route::get('/invoice/download/{order}', [OrderController::class, 'downloadInvoice'])->name('invoice.download');
 
-// User Pages
+
+// User
 Route::get('/', [HomeController::class, 'index'])->name('user');
 Route::get('/admin', [HomeController::class, 'adminDashboard'])->name('admin')->middleware('auth');
 Route::get('/profile-user', [HomeController::class, 'userProfile'])->name('profile.show')->middleware('auth');
 Route::get('/services', [HomeController::class, 'servicesPage'])->name('services.page');
 Route::get('/booking', [HomeController::class, 'bookingPage'])->name(name: 'booking.page');
+
 
 
 // Authentication
@@ -30,7 +34,7 @@ Route::put('/profile/update-password', [AuthController::class, 'updatePassword']
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('dashboard.page');
-    
+
 Route::get('/admin/adminservices', function () {
     return view('admin.adminservices');
 })->name('adminservices.page');
