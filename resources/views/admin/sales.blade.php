@@ -17,9 +17,7 @@
                     <tr>
                         <th scope="col">Order Id</th>
                         <th scope="col">Order By</th>
-                        <th scope="col">Order Date</th>
                         <th scope="col">Pickup Date</th>
-                        <th scope="col">Delivery Date</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Order Status</th>
                         <th scope="col" class="action-col">Action</th>
@@ -30,8 +28,6 @@
                         <td>#12345</td>
                         <td>John Doe</td>
                         <td>2025-04-01</td>
-                        <td>2025-04-02</td>
-                        <td>2025-04-03</td>
                         <td>₱500.00</td>
                         <td>Pending</td>
                         <td>
@@ -52,8 +48,6 @@
                         <td>#12346</td>
                         <td>Jane Smith</td>
                         <td>2025-04-02</td>
-                        <td>2025-04-03</td>
-                        <td>2025-04-04</td>
                         <td>₱450.00</td>
                         <td>Completed</td>
                         <td>
@@ -74,8 +68,6 @@
                         <td>#12347</td>
                         <td>Samuel Lee</td>
                         <td>2025-04-05</td>
-                        <td>2025-04-06</td>
-                        <td>2025-04-07</td>
                         <td>₱600.00</td>
                         <td>In Progress</td>
                         <td>
@@ -90,10 +82,10 @@
                                     <i class="fas fa-print"></i>
                                 </button>
                             </div>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-     </div>
+    </div>
+</div>
 </div>

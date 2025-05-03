@@ -69,6 +69,9 @@
                             <a href="#" class="load-page" data-route="{{ route('pos.page') }}">
                                 <i class="bi bi-gear"></i> POS
                             </a>
+                            <a href="#" class="load-page" data-route="{{ route('sales.page') }}">
+                                <i class="bi bi-gear"></i> Sales
+                            </a>
                         </div>
                     </div>
                 </div>
