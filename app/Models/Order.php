@@ -8,10 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Order extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'ref_no', 'status'];
+    protected $fillable = ['user_id', 'ref_no', 'payment_method', 'status'];
 
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+    public function sale()
+    {
+        return $this->hasOne(Sale::class);
     }
 }

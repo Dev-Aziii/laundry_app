@@ -19,18 +19,13 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="step2-tab" data-bs-toggle="pill" href="#step2">
-                                <i class="bi bi-truck me-2"></i> 2. Delivery Details
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="step3-tab" data-bs-toggle="pill" href="#step3">
-                                <i class="bi bi-check-circle me-2"></i> 3. Order Details
+                                <i class="bi bi-truck me-2"></i> 2. Details & Payment
                             </a>
                         </li>
                     </ul>
 
                     <div class="progress mb-4">
-                        <div class="progress-bar" id="progressBar" role="progressbar" style="width: 33%;" aria-valuenow="33"
+                        <div class="progress-bar" id="progressBar" role="progressbar" style="width: 50%;" aria-valuenow="50"
                             aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
@@ -42,10 +37,6 @@
                         <div class="tab-pane fade" id="step2">
                             @include('user.step2')
                         </div>
-
-                        <div class="tab-pane fade" id="step3">
-                            @include('user.step3', ['services' => $services])
-                        </div>
                     </div>
                 </div>
             </div>
@@ -53,7 +44,6 @@
     </main>
 
     <script>
-        //progress bar
         document.addEventListener("DOMContentLoaded", function() {
             let progressBar = document.getElementById("progressBar");
 
@@ -74,13 +64,13 @@
             });
 
             function updateProgress(step) {
-                let progress = step === "step1" ? 33 : step === "step2" ? 66 : 100;
+                let progress = step === "step1" ? 50 : 100;
                 progressBar.style.width = progress + "%";
                 progressBar.setAttribute("aria-valuenow", progress);
             }
         });
 
-        //return view
+        // return view
         window.addEventListener('popstate', function(event) {
             window.location.href = "{{ route('services.page') }}";
         });

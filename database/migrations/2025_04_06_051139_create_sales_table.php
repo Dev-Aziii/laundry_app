@@ -10,11 +10,9 @@ return new class extends Migration {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
-            $table->string('payment_method');
             $table->decimal('amount_rendered', 18, 2)->nullable();
             $table->decimal('amount_due', 18, 2);
             $table->decimal('change_amount', 18, 2)->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('status')->default('pending');
             $table->timestamps();
         });

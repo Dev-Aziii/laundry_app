@@ -28,7 +28,7 @@
 
                 <a class="custom-btn custom-border-btn custom-btn-bg-white btn button button--pan smoothscroll"
                     href="{{ $servicesLink }}">
-                    <span>Explore Services</span>
+                    <span>Explore Our Offers</span>
                 </a>
             </div>
         </div>

@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('ref_no')->unique();
+            $table->string('payment_method');
             $table->string('status')->default('pending');
             $table->timestamps();
         });
