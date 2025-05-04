@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sale_id')->constrained()->onDelete('cascade');
             $table->string('type');
+            $table->string('status')->default('Unpaid');
             $table->timestamps();
         });
     }

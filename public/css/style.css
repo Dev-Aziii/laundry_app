@@ -1450,7 +1450,6 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 .admin-sidebar a.active,
 .accordion-body a.active {
     background-color: #495057;
-    color: #e74c3c;
     padding-left: 20px;
 }
 
@@ -1499,6 +1498,15 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     box-shadow: none;
     background-color: transparent;
     color: white;
+}
+
+/*---------------------------------------
+    Content Area     
+-----------------------------------------*/
+.content-area {
+    margin-left: 240px;
+    padding: 15px;
+    height: calc(100vh - 60px);
 }
 
 /*---------------------------------------

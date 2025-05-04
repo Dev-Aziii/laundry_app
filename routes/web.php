@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\AdminController;
+
+//admin
+Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
 
 //order
 Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('placeOrder');
@@ -30,47 +35,16 @@ Route::get('/logout', [AuthController::class, 'logoutUser'])->name('logout')->mi
 Route::put('/profile/update-details', [AuthController::class, 'updateUser'])->name('user.update-details');
 Route::put('/profile/update-password', [AuthController::class, 'updatePassword'])->name('user.update-password');
 
-//admin page
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard.page');
-
-Route::get('/admin/adminservices', function () {
-    return view('admin.adminservices');
-})->name('adminservices.page');
-
-Route::get('/admin/products', function () {
-    return view('admin.products');
-})->name('products.page');
-
-Route::get('/admin/orders', function () {
-    return view('admin.orders');
-})->name('orders.page');
-
-Route::get('/admin/pos', function () {
-    return view('admin.pos');
-})->name('pos.page');
-
-Route::get('/admin/sales', function () {
-    return view('admin.sales');
-})->name('sales.page');
-
-Route::get('/admin/tracking', function () {
-    return view('admin.tracking');
-})->name('tracking.page');
-
-Route::get('/admin/customer', function () {
-    return view('admin.customer');
-})->name('customer.page');
-
-Route::get('/admin/reports', function () {
-    return view('admin.reports');
-})->name('reports.page');
-
-Route::get('/admin/tasks', function () {
-    return view('admin.tasks');
-})->name('tasks.page');
-
-Route::get('/admin/shifts', function () {
-    return view('admin.shifts');
-})->name('shift.page');
+//admin
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.page');
+Route::get('/admin/adminservices', [AdminController::class, 'adminServices'])->name('adminservices.page');
+Route::get('/admin/products', [AdminController::class, 'products'])->name('products.page');
+Route::get('/admin/orders', [AdminController::class, 'orders'])->name('orders.page');
+Route::get('/admin/pos', [AdminController::class, 'pos'])->name('pos.page');
+Route::get('/admin/sales', [AdminController::class, 'sales'])->name('sales.page');
+Route::get('/admin/tracking', [AdminController::class, 'tracking'])->name('tracking.page');
+Route::get('/admin/customer', [AdminController::class, 'customer'])->name('customer.page');
+Route::get('/admin/reports', [AdminController::class, 'reports'])->name('reports.page');
+Route::get('/admin/tasks', [AdminController::class, 'tasks'])->name('tasks.page');
+Route::get('/admin/shifts', [AdminController::class, 'shifts'])->name('shift.page');
+Route::get('/admin/orders/{order}', [AdminController::class, 'viewOrder'])->name('orders.view');

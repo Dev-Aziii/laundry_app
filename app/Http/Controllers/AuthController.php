@@ -8,19 +8,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rules\Password;
+use App\Models\Service;
 
 class AuthController extends Controller
 {
     public function showLoginForm()
     {
         if (Auth::check()) {
-            return Auth::user()->usertype == '1'
-                ? redirect()->route('admin')
-                : redirect()->route('user');
+            if (Auth::user()->usertype == '1') {
+                return redirect()->route('admin');
+            } else {
+                return redirect()->route('user');
+            }
         }
 
         return view('auth.login');
     }
+
 
     public function showRegistrationForm()
     {
@@ -46,7 +50,6 @@ class AuthController extends Controller
             if ($redirectUrl) {
                 return redirect()->to($redirectUrl);
             }
-
             return Auth::user()->usertype == '1'
                 ? redirect()->route('admin')
                 : redirect()->route('user');

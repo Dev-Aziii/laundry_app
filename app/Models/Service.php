@@ -15,8 +15,8 @@ class Service extends Model
         'price_per_kg',
         'description',
         'image1',
-        'image2',
-        'duration'
+        'duration',
+        'status'
     ];
 
     public function orderDetails()

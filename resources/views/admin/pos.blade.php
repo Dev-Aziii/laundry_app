@@ -1,17 +1,18 @@
-<div class="d-flex justify-content-end pt-5">
-    <div class="card shadow-lg p-4 rounded-4 border-0 mt-5" style="width: 82%;">
+<div class="d-flex justify-content-start pt-5">
+    <div class="content-area w-100 ms-auto px-4">
+        <br>
         <div class="container-fluid">
             <div class="row">
                 <!-- Services Section -->
                 <div class="col-md-8">
                     <div class="card shadow-lg p-4 rounded-4 border-0 mt-5">
                         <h2 class="mb-4">Point of Sale</h2>
-                        
+
                         <div class="text-center">
                             <h3 class="text-lg font-medium mb-4">Select Service</h3>
-                            
+
                             <div class="row">
-                                @foreach(['Dry Cleaning', 'Iron Only', 'Wash Only', 'Wash & Dry'] as $service)
+                                @foreach (['Dry Cleaning', 'Iron Only', 'Wash Only', 'Wash & Dry'] as $service)
                                     <div class="col-md-6 mb-3">
                                         <button class="btn btn-primary w-100 py-3">
                                             {{ $service }}
@@ -35,7 +36,7 @@
                                 <input type="text" class="form-control mb-2" placeholder="Name or phone number">
                                 <input type="text" class="form-control" placeholder="Address">
                             </div>
-                            
+
                             <div class="d-grid mb-3">
                                 <button class="btn btn-outline-primary">Add Customer</button>
                             </div>
@@ -56,11 +57,13 @@
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Discount:</span>
-                                    <input type="text" class="form-control form-control-sm w-50 text-end" value="$0.00">
+                                    <input type="text" class="form-control form-control-sm w-50 text-end"
+                                        value="$0.00">
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Delivery:</span>
-                                    <input type="text" class="form-control form-control-sm w-50 text-end" value="$0.00">
+                                    <input type="text" class="form-control form-control-sm w-50 text-end"
+                                        value="$0.00">
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between fw-bold fs-5">
@@ -91,23 +94,27 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <style>
     .card {
         border-radius: 10px;
     }
+
     .btn-primary {
         background-color: #4e73df;
         border-color: #4e73df;
     }
+
     .btn-primary:hover {
         background-color: #3a5ec0;
         border-color: #3a5ec0;
     }
+
     .form-control {
         border-radius: 5px;
     }
+
     .payment-methods .btn {
         min-width: 80px;
     }

@@ -14,9 +14,9 @@ class ServiceSeeder extends Seeder
             'service_name' => 'Laundry Service',
             'price_per_kg' => 20.99,
             'description' => 'We offer high-quality laundry services with fast turnaround time.',
-            'image1' => 'images/services/laundry-img1.jpg',
-            'image2' => 'images/services/laundry-img1.png',
+            'image1' => 'services/78v8uEvpOp2tceAiHO7xqk7g8ifaYrpFuo7xPQ8k.jpg',
             'duration' => '2-3 ',
+            'status' => 'active',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -25,9 +25,9 @@ class ServiceSeeder extends Seeder
             'service_name' => 'Dry Cleaning Service',
             'price_per_kg' => 30.99,
             'description' => 'Professional dry cleaning for all your delicate garments.',
-            'image1' => 'images/services/laundry-img2.png',
-            'image2' => 'images/services/laundry-img1.jpg',
+            'image1' => 'services/Gl0hTqdIN3fonc6kHO84iWMc6sTYzRJHY8k4NWl0.png',
             'duration' => '2-3',
+            'status' => 'active',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -12,10 +12,9 @@
                             <div class="col-lg-5 col-md-5 col-12">
                                 <div class="services-image-wrap">
                                     <a href="#">
-                                        <img src="{{ asset($service->image1) }}" class="services-image img-fluid"
-                                            alt="">
-                                        <img src="{{ asset($service->image2) }}"
-                                            class="services-image services-image-hover img-fluid" alt="">
+                                        <img src="{{ asset('storage/' . $service->image1) }}"
+                                            class="services-image img-fluid" alt="">
+
                                         <div class="services-icon-wrap">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <p class="text-white mb-0">
@@ -51,10 +50,7 @@
                         <span>Book Now</span>
                         <div class="marquee" aria-hidden="true">
                             <div class="marquee__inner">
-                                <span>Book Now</span>
-                                <span>Book Now</span>
-                                <span>Book Now</span>
-                                <span>Book Now</span>
+                                <span>Book Now</span><span>Book Now</span><span>Book Now</span><span>Book Now</span>
                             </div>
                         </div>
                     </a>
@@ -64,10 +60,7 @@
                         <span>Book Now</span>
                         <div class="marquee" aria-hidden="true">
                             <div class="marquee__inner">
-                                <span>Book Now</span>
-                                <span>Book Now</span>
-                                <span>Book Now</span>
-                                <span>Book Now</span>
+                                <span>Book Now</span><span>Book Now</span><span>Book Now</span><span>Book Now</span>
                             </div>
                         </div>
                     </a>
@@ -77,18 +70,15 @@
                     <span>View More</span>
                     <div class="marquee" aria-hidden="true">
                         <div class="marquee__inner">
-                            <span>View More</span>
-                            <span>View More</span>
-                            <span>View More</span>
-                            <span>View More</span>
+                            <span>View More</span><span>View More</span><span>View More</span><span>View More</span>
                         </div>
                     </div>
                 </a>
             @endif
         </div>
-
     </div>
 </section>
+
 <script>
     function scrollToSection(section) {
         let element = document.querySelector(section);

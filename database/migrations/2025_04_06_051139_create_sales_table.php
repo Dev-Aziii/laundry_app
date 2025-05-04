@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->decimal('amount_rendered', 18, 2)->nullable();
             $table->decimal('amount_due', 18, 2);
             $table->decimal('change_amount', 18, 2)->nullable();
-            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

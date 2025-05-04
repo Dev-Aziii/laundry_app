@@ -2,6 +2,11 @@
 @section('title', 'Admin | WashingMashing')
 
 @section('content')
+    <style>
+        body {
+            background-color: #f1f1f1;
+        }
+    </style>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body admin-navbar" data-bs-theme="dark"
         style="height: 60px;">
         <div class="container-fluid">
@@ -28,7 +33,8 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div class="sidebar bg-dark border-bottom border-body admin-sidebar p-3" data-bs-theme="dark">
-            <a href="#" class="load-page" data-route="{{ route('dashboard.page') }}"><i class="bi bi-cart"></i>Dashboard</a>
+            <a href="#" class="load-page" data-route="{{ route('dashboard.page') }}"><i
+                    class="bi bi-speedometer"></i>Dashboard</a>
             <a href="#" class="load-page" data-route="{{ route('orders.page') }}"><i class="bi bi-cart"></i>Orders</a>
 
             <!-- Product Manage Accordion -->
@@ -36,12 +42,13 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingProductManage">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseProductManage" aria-expanded="false" aria-controls="collapseProductManage">
+                            data-bs-target="#collapseProductManage" aria-expanded="false"
+                            aria-controls="collapseProductManage">
                             <i class="bi bi-clipboard-check"></i>Product Manage
                         </button>
                     </h2>
-                    <div id="collapseProductManage" class="accordion-collapse collapse" aria-labelledby="headingProductManage"
-                        data-bs-parent="#productManageAccordion">
+                    <div id="collapseProductManage" class="accordion-collapse collapse"
+                        aria-labelledby="headingProductManage" data-bs-parent="#productManageAccordion">
                         <div class="accordion-body">
                             <a href="#" class="load-page" data-route="{{ route('adminservices.page') }}">
                                 <i class="bi bi-gear"></i> Services
@@ -77,38 +84,76 @@
                 </div>
             </div>
 
-            <a href="#" class="load-page" data-route="{{ route('tracking.page') }}"><i class="bi bi-truck"></i>Order Tracking</a>
-            <a href="#" class="load-page" data-route="{{ route('customer.page') }}"><i class="bi bi-credit-card"></i>Customer</a>
-            <a href="#" class="load-page" data-route="{{ route('reports.page') }}"><i class="bi bi-file-earmark-bar-graph"></i>Reports</a>
-            <a href="#" class="load-page" data-route="{{ route('tasks.page') }}"><i class="bi bi-person-lines-fill"></i>Employee Tasks</a>
-            <a href="#" class="load-page" data-route="{{ route('shift.page') }}"><i class="bi bi-calendar-check"></i>Shift Assignments</a>
+            <a href="#" class="load-page" data-route="{{ route('tracking.page') }}"><i class="bi bi-truck"></i>Order
+                Tracking</a>
+            <a href="#" class="load-page" data-route="{{ route('customer.page') }}"><i
+                    class="bi bi-credit-card"></i>Customer</a>
+            <a href="#" class="load-page" data-route="{{ route('reports.page') }}"><i
+                    class="bi bi-file-earmark-bar-graph"></i>Reports</a>
+            <a href="#" class="load-page" data-route="{{ route('tasks.page') }}"><i
+                    class="bi bi-person-lines-fill"></i>Employee Management</a>
+            <a href="#" class="load-page" data-route="{{ route('shift.page') }}"><i
+                    class="bi bi-calendar-check"></i>Shift Assignments</a>
         </div>
 
         <!-- Content Area -->
         <div class="content-area flex-grow-1 p-3" id="contentArea">
-            <h2>Welcome to Admin Dashboard</h2>
-            <p>Select an option from the sidebar to load content.</p>
+
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('.load-page').click(function (e) {
+        $(document).ready(function() {
+            // Delegated event handler for .load-page clicks (works for dynamically loaded content)
+            $(document).on('click', '.load-page', function(e) {
                 e.preventDefault();
+
                 var route = $(this).data('route');
 
                 $.ajax({
                     url: route,
                     type: 'GET',
-                    success: function (data) {
+                    success: function(data) {
                         $('#contentArea').html(data);
                     },
-                    error: function () {
-                        $('#contentArea').html('<p class="text-danger">Failed to load content.</p>');
+                    error: function() {
+                        $('#contentArea').html(
+                            '<p class="text-danger">Failed to load content.</p>');
+                    }
+                });
+
+                // Handle active sidebar link state
+                $('.admin-sidebar a, .accordion-body a').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            // Trigger default dashboard load
+            var dashboardLink = $('[data-route="{{ route('dashboard.page') }}"]');
+            dashboardLink.trigger('click');
+            dashboardLink.addClass('active');
+
+            // Add service form (unchanged)
+            $(document).on('submit', '#addServiceForm', function(e) {
+                e.preventDefault();
+                let form = $(this)[0];
+                let formData = new FormData(form);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function() {
+                        $('#addServiceModal').modal('hide');
+                        $('[data-route="{{ route('adminservices.page') }}"]').trigger('click');
+                    },
+                    error: function(xhr) {
+                        alert('Error: ' + xhr.responseText);
                     }
                 });
             });
         });
     </script>
+
 @endsection

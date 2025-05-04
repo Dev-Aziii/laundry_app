@@ -36,8 +36,8 @@
                                     </div>
 
                                     @if ($service->image1)
-                                        <img src="{{ $service->image1 }}" alt="{{ $service->service_name }}"
-                                            class="img-thumbnail"
+                                        <img src="{{ asset('storage/' . $service->image1) }}"
+                                            alt="{{ $service->service_name }}" class="img-thumbnail"
                                             style="width: 100px; height: 100px; object-fit: cover;">
                                     @endif
                                 </label>

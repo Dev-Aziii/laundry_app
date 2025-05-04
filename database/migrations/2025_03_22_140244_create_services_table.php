@@ -13,8 +13,8 @@ return new class extends Migration {
             $table->decimal('price_per_kg', 8, 2);
             $table->text('description')->nullable();
             $table->string('image1')->nullable();
-            $table->string('image2')->nullable();
             $table->string('duration')->nullable();
+            $table->string(column: 'status')->default('active');
             $table->timestamps();
             $table->softDeletes()->nullable();
         });

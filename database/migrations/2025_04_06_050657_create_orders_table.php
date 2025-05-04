@@ -12,7 +12,9 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('ref_no')->unique();
             $table->string('payment_method');
-            $table->string('status')->default('pending');
+            $table->date('pickup_date')->nullable();
+            $table->date('delivery_date')->nullable();
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }
