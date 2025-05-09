@@ -4,9 +4,9 @@
             <div class="row">
                 <!-- Services Section -->
                 <div class="col-md-8">
-                    <div class="card shadow-lg p-4 rounded-4 border-0 mt-5">
+                    <div class="p-4 rounded-4 border-0 mt-2">
                         <h2 class="mb-4">Point of Sale</h2>
-                        
+                        <br>
                         <div class="text-center">
                             <h3 class="text-lg font-medium mb-4">Select Service</h3>
                             
@@ -25,7 +25,7 @@
 
                 <!-- Order Basket Section -->
                 <div class="col-md-4">
-                    <div class="card shadow-lg mt-5 h-100">
+                    <div class="card shadow-lg mt-5 h-80">
                         <div class="card-header bg-primary text-white">
                             <h5 class="mb-0">Order Basket</h5>
                         </div>
@@ -52,20 +52,20 @@
                             <div class="totals-section">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Subtotal:</span>
-                                    <strong>$0.00</strong>
+                                    <strong>₱0.00</strong>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Discount:</span>
-                                    <input type="text" class="form-control form-control-sm w-50 text-end" value="$0.00">
+                                    <input type="text" class="form-control form-control-sm w-50 text-end" value="₱0.00">
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Delivery:</span>
-                                    <input type="text" class="form-control form-control-sm w-50 text-end" value="$0.00">
+                                    <input type="text" class="form-control form-control-sm w-50 text-end" value="₱0.00">
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between fw-bold fs-5">
                                     <span>Grand Total:</span>
-                                    <strong>$0.00</strong>
+                                    <strong>₱0.00</strong>
                                 </div>
                             </div>
 
