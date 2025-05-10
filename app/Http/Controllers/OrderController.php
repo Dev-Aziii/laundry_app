@@ -16,12 +16,52 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
+    public function filter(Request $request)
+    {
+        $orders = Order::with('orderDetails.service')
+            ->when($request->status, fn($q) => $q->where('status', $request->status))
+            ->latest()
+            ->get();
+
+        return view('admin.partials.orders-table', compact('orders'))->render();
+    }
+
+
+    // This method validates and updates the order.
+    public function updateOrderDetails(Request $request, Order $order)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:Pending,In Progress,Out for Delivery,Completed,Cancelled',
+            'pickup_date' => 'nullable|date',
+            'delivery_date' => 'nullable|date',
+            'payment_status' => 'nullable|in:Paid,Unpaid',
+        ]);
+
+        $order->update([
+            'status' => $validated['status'],
+            'pickup_date' => $validated['pickup_date'],
+            'delivery_date' => $validated['delivery_date'],
+        ]);
+
+        if (!empty($validated['payment_status']) && $order->sale && $order->sale->payment) {
+            $order->sale->payment->update([
+                'status' => $validated['payment_status'],
+            ]);
+        }
+
+        return redirect()->back()
+            ->with('success', 'redirect_to_orders')
+            ->with('message', 'Order updated successfully.');
+    }
+
+    // This method loads the order data and uses the DomPDF package to generate and download the PDF invoice.
     public function downloadInvoice(Order $order)
     {
         $pdf = Pdf::loadView('user.summary-pdf', ['order' => $order]);
         return $pdf->download('invoice_' . $order->ref_no . '.pdf');
     }
 
+    // This method loads all orders with related order details for the user.
     public function order()
     {
         $orders = Order::with(['orderDetails.service'])
@@ -31,6 +71,7 @@ class OrderController extends Controller
         return view('user.orders', compact('orders'));
     }
 
+    // This method fetches the most recent order and its related data for display.
     public function summary()
     {
         $order = Order::with(['orderDetails.service', 'sale.payment.cod', 'sale.payment.paypal'])
@@ -40,6 +81,8 @@ class OrderController extends Controller
 
         return view('user.summary', compact('order'));
     }
+
+    // Handle the process of placing a new order.
     public function placeOrder(Request $request)
     {
         $request->validate([
@@ -71,7 +114,6 @@ class OrderController extends Controller
             'quantity' => $request->quantityInput,
         ]);
 
-
         if ($request->payment_method === 'cash_on_delivery') {
             $sale = Sale::create([
                 'order_id' => $order->id,
@@ -94,6 +136,7 @@ class OrderController extends Controller
         return redirect()->route('summary.page');
     }
 
+    // This method creates a unique reference number using the current date and a random string.
     private function generateUniqueRefNo()
     {
         do {
@@ -105,6 +148,7 @@ class OrderController extends Controller
         return $ref_no;
     }
 
+    // This method finds the service by its ID and multiplies its price by the quantity ordered.
     private function calculateAmountDue(Request $request)
     {
         $service = Service::findOrFail($request->serviceIdInput);

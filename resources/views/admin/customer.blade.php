@@ -3,10 +3,9 @@
         <br>
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> <i class="fas fa-table me-1"></i> Order Table</h5>
+                <h5 class="mb-0"><i class="fas fa-table me-1"></i> Users Table</h5>
                 <form class="d-flex" action="#" method="GET">
-                    <input type="text" class="form-control form-control-sm" placeholder="Search Orders"
-                        aria-label="Search">
+                    <input type="text" class="form-control form-control-sm" placeholder="Search Users" name="search">
                     <button class="btn btn-primary btn-sm order-btn ms-2" type="submit">
                         <i class="fas fa-search"></i>
                     </button>
@@ -16,82 +15,37 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Order Id</th>
-                            <th scope="col">Order By</th>
-                            <th scope="col">Order Date</th>
-                            <th scope="col">Pickup Date</th>
-                            <th scope="col">Delivery Date</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Order Status</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Created At</th>
                             <th scope="col" class="action-col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>#12345</td>
-                            <td>John Doe</td>
-                            <td>2025-04-01</td>
-                            <td>2025-04-02</td>
-                            <td>2025-04-03</td>
-                            <td>₱500.00</td>
-                            <td>Pending</td>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-address-card"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm order-btn">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#12346</td>
-                            <td>Jane Smith</td>
-                            <td>2025-04-02</td>
-                            <td>2025-04-03</td>
-                            <td>2025-04-04</td>
-                            <td>₱450.00</td>
-                            <td>Completed</td>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-address-card"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm order-btn">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#12347</td>
-                            <td>Samuel Lee</td>
-                            <td>2025-04-05</td>
-                            <td>2025-04-06</td>
-                            <td>2025-04-07</td>
-                            <td>₱600.00</td>
-                            <td>In Progress</td>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-address-card"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm order-btn">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                </div>
-                        </tr>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->phone ?? 'N/A' }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->address ?? 'N/A' }}</td>
+                                <td>{{ $user->created_at->format('Y-m-d') }}</td>
+                                <td>
+                                    <div class="d-flex justify-content-between">
+                                        <button class="btn btn-primary btn-sm order-btn">
+                                            <i class="fas fa-user-edit"></i>
+                                        </button>
+                                        <button class="btn btn-primary btn-sm order-btn">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm order-btn">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

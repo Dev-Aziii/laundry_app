@@ -30,21 +30,17 @@
             </style>
 
             <div class="row mb-4 g-3">
-                <!-- INCOME -->
+                <!-- TOTAL SALES -->
                 <div class="col-lg-3 col-sm-6">
                     <div class="card tile-card bg-white">
                         <div class="icon-circle bg-success">
                             <i class="fas fa-dollar-sign"></i>
                         </div>
                         <div class="card-body text-success">
-                            <h6 class="text-uppercase">Income</h6>
-                            <h3>$1050.72</h3>
+                            <h6 class="text-uppercase">Sales</h6>
+                            <h3>${{ number_format($totalSales, 2) }}</h3>
                         </div>
-                        <div
-                            class="card-footer bg-light text-success fw-semibold d-flex justify-content-between align-items-center">
-                            <span>More Info</span>
-                            <i class="fas fa-chevron-circle-right"></i>
-                        </div>
+
                     </div>
                 </div>
 
@@ -56,17 +52,13 @@
                         </div>
                         <div class="card-body text-primary">
                             <h6 class="text-uppercase">Users</h6>
-                            <h3>4</h3>
+                            <h3>{{ $totalUsers }}</h3>
                         </div>
-                        <div
-                            class="card-footer bg-light text-primary fw-semibold d-flex justify-content-between align-items-center">
-                            <span>More Info</span>
-                            <i class="fas fa-chevron-circle-right"></i>
-                        </div>
+
                     </div>
                 </div>
 
-                <!-- Employee -->
+                <!-- Employees -->
                 <div class="col-lg-3 col-sm-6">
                     <div class="card tile-card bg-white">
                         <div class="icon-circle bg-warning">
@@ -74,13 +66,9 @@
                         </div>
                         <div class="card-body text-warning">
                             <h6 class="text-uppercase">Employees</h6>
-                            <h3>15</h3>
+                            <h3>WALA PA!</h3>
                         </div>
-                        <div
-                            class="card-footer bg-light text-warning fw-semibold d-flex justify-content-between align-items-center">
-                            <span>More Info</span>
-                            <i class="fas fa-chevron-circle-right"></i>
-                        </div>
+
                     </div>
                 </div>
 
@@ -92,13 +80,9 @@
                         </div>
                         <div class="card-body text-danger">
                             <h6 class="text-uppercase">Services</h6>
-                            <h3>5</h3>
+                            <h3>{{ $totalServices }}</h3>
                         </div>
-                        <div
-                            class="card-footer bg-light text-danger fw-semibold d-flex justify-content-between align-items-center">
-                            <span>More Info</span>
-                            <i class="fas fa-chevron-circle-right"></i>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -162,69 +146,81 @@
                     </div>
                 </div>
 
+                <style>
+                    .overview-header {
+                        background-image: url('../images/water2.png');
+                        background-size: cover;
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        padding-bottom: 65px;
+                    }
+                </style>
                 <!-- Overview Section -->
                 <div class="col-lg-4">
                     <div class="card h-100 border-0 shadow">
                         <!-- Colored Header -->
-                        <div class="card-header bg-secondary text-white rounded-top">
-                            <br>
-                            <br>
-                            <h5 class="mb-0">Overview</h5>
+                        <div class="card-header overview-header">
+                            <h5 class="">Overview</h5>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
-                                <!-- Item -->
+                                <!-- Users -->
                                 <div class="col-6 d-flex align-items-center">
                                     <div class="me-3">
                                         <i class="fas fa-users fa-2x text-primary"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h5 class="mb-1">4</h5>
+                                        <h5 class="mb-1">{{ $totalUsers }}</h5>
                                         <small class="text-muted">Users</small>
                                     </div>
                                 </div>
+                                <!-- Orders -->
                                 <div class="col-6 d-flex align-items-center">
                                     <div class="me-3">
                                         <i class="fas fa-shopping-cart fa-2x text-success"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h5 class="mb-1">0</h5>
+                                        <h5 class="mb-1">{{ $totalOrders }}</h5>
                                         <small class="text-muted">Orders</small>
                                     </div>
                                 </div>
+                                <!-- Pending Orders -->
                                 <div class="col-6 d-flex align-items-center">
                                     <div class="me-3">
                                         <i class="fas fa-clock fa-2x text-warning"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h5 class="mb-1">0</h5>
+                                        <h5 class="mb-1">{{ $pendingOrders }}</h5>
                                         <small class="text-muted">Pending</small>
                                     </div>
                                 </div>
+                                <!-- Orders in Progress -->
                                 <div class="col-6 d-flex align-items-center">
                                     <div class="me-3">
                                         <i class="fas fa-sync-alt fa-2x text-info"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h5 class="mb-1">0</h5>
+                                        <h5 class="mb-1">{{ $onProgressOrders }}</h5>
                                         <small class="text-muted">On Progress</small>
                                     </div>
                                 </div>
+                                <!-- Delivered Orders -->
                                 <div class="col-6 d-flex align-items-center">
                                     <div class="me-3">
                                         <i class="fas fa-truck fa-2x text-success"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h5 class="mb-1">1</h5>
+                                        <h5 class="mb-1">{{ $deliveredOrders }}</h5>
                                         <small class="text-muted">Delivered</small>
                                     </div>
                                 </div>
+                                <!-- Cancelled Orders -->
                                 <div class="col-6 d-flex align-items-center">
                                     <div class="me-3">
                                         <i class="fas fa-times-circle fa-2x text-danger"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h5 class="mb-1">0</h5>
+                                        <h5 class="mb-1">{{ $cancelledOrders }}</h5>
                                         <small class="text-muted">Cancelled</small>
                                     </div>
                                 </div>
@@ -232,7 +228,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
+
+            </div>
         </div>
-    </div>

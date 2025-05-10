@@ -2,22 +2,30 @@
 @section('title', 'Admin | WashingMashing')
 
 @section('content')
+
     <style>
         body {
-            background-color: #f1f1f1;
+            background-color: rgb(235, 235, 235);
         }
     </style>
+
+    <!-- Navbar Section -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body admin-navbar" data-bs-theme="dark"
         style="height: 60px;">
         <div class="container-fluid">
+            <!-- Logo and App Name -->
             <a class="navbar-brand" href="#">
                 <img src="images/bubbles.png" alt="Laundry Logo" class="navbar-logo">
                 <span class="navbar-text">WashingMashing</span>
             </a>
+
+            <!-- User Profile Dropdown -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li>
@@ -31,91 +39,110 @@
     </nav>
 
     <div class="d-flex">
-        <!-- Sidebar -->
+        <!-- Sidebar Section -->
         <div class="sidebar bg-dark border-bottom border-body admin-sidebar p-3" data-bs-theme="dark">
-            <a href="#" class="load-page" data-route="{{ route('dashboard.page') }}"><i
-                    class="bi bi-speedometer"></i>Dashboard</a>
-            <a href="#" class="load-page" data-route="{{ route('orders.page') }}"><i class="bi bi-cart"></i>Orders</a>
+            <a href="#" class="load-page" data-route="{{ route('dashboard.page') }}">
+                <i class="bi bi-house-door"></i> Dashboard
+            </a>
 
-            <!-- Product Manage Accordion -->
-            <div class="accordion" id="productManageAccordion">
+            <!-- Orders Link -->
+            <a href="#" class="load-page" data-route="{{ route('orders.page') }}">
+                <i class="bi bi-cart"></i> Orders
+            </a>
+
+            <!-- Service Management Section with Accordion -->
+            <div class="accordion" id="serviceManageAccordion">
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingProductManage">
+                    <h2 class="accordion-header" id="headingServiceManage">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseProductManage" aria-expanded="false"
-                            aria-controls="collapseProductManage">
-                            <i class="bi bi-clipboard-check"></i>Product Manage
+                            data-bs-target="#collapseServiceManage" aria-expanded="false"
+                            aria-controls="collapseServiceManage">
+                            <i class="bi bi-gear"></i> Service Management
                         </button>
                     </h2>
-                    <div id="collapseProductManage" class="accordion-collapse collapse"
-                        aria-labelledby="headingProductManage" data-bs-parent="#productManageAccordion">
+                    <div id="collapseServiceManage" class="accordion-collapse collapse"
+                        aria-labelledby="headingServiceManage" data-bs-parent="#serviceManageAccordion">
                         <div class="accordion-body">
+                            <!-- Services Link -->
                             <a href="#" class="load-page" data-route="{{ route('adminservices.page') }}">
-                                <i class="bi bi-gear"></i> Services
+                                <i class="bi bi-tools"></i> Services
                             </a>
+                            <!-- Products Link -->
                             <a href="#" class="load-page" data-route="{{ route('products.page') }}">
-                                <i class="bi bi-box-seam"></i> Products
+                                <i class="bi bi-box"></i> Products
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- POS Manage Accordion -->
+            <!-- POS Management Section with Accordion -->
             <div class="accordion" id="posManageAccordion">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingPosManage">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapsePosManage" aria-expanded="false" aria-controls="collapsePosManage">
-                            <i class="bi bi-person-plus"></i> POS Manage
+                            <i class="bi bi-credit-card"></i> POS Management
                         </button>
                     </h2>
                     <div id="collapsePosManage" class="accordion-collapse collapse" aria-labelledby="headingPosManage"
                         data-bs-parent="#posManageAccordion">
                         <div class="accordion-body">
+                            <!-- POS Link -->
                             <a href="#" class="load-page" data-route="{{ route('pos.page') }}">
-                                <i class="bi bi-gear"></i> POS
+                                <i class="bi bi-cash-stack"></i> POS
                             </a>
+                            <!-- Sales Link -->
                             <a href="#" class="load-page" data-route="{{ route('sales.page') }}">
-                                <i class="bi bi-gear"></i> Sales
+                                <i class="bi bi-bar-chart"></i> Sales
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <a href="#" class="load-page" data-route="{{ route('tracking.page') }}"><i class="bi bi-truck"></i>Order
-                Tracking</a>
-            <a href="#" class="load-page" data-route="{{ route('customer.page') }}"><i
-                    class="bi bi-credit-card"></i>Customer</a>
-            <a href="#" class="load-page" data-route="{{ route('reports.page') }}"><i
-                    class="bi bi-file-earmark-bar-graph"></i>Reports</a>
-            <a href="#" class="load-page" data-route="{{ route('tasks.page') }}"><i
-                    class="bi bi-person-lines-fill"></i>Employee Management</a>
-            <a href="#" class="load-page" data-route="{{ route('shift.page') }}"><i
-                    class="bi bi-calendar-check"></i>Shift Assignments</a>
+            <!-- Other Sidebar Links -->
+            <a href="#" class="load-page" data-route="{{ route('customer.page') }}">
+                <i class="bi bi-person-lines-fill"></i> Customers
+            </a>
+            <a href="#" class="load-page" data-route="{{ route('reports.page') }}">
+                <i class="bi bi-file-earmark-bar-graph"></i> Reports
+            </a>
+            <a href="#" class="load-page" data-route="{{ route('tasks.page') }}">
+                <i class="bi bi-person-workspace"></i> Employee Management
+            </a>
+            <a href="#" class="load-page" data-route="{{ route('shift.page') }}">
+                <i class="bi bi-calendar-check"></i> Shift Assignments
+            </a>
         </div>
 
         <!-- Content Area -->
         <div class="content-area flex-grow-1 p-3" id="contentArea">
-
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Delegated event handler for .load-page clicks (works for dynamically loaded content)
+
+            // Dynamic page loading with AJAX
             $(document).on('click', '.load-page', function(e) {
-                e.preventDefault();
+                e.preventDefault(); // Prevent default anchor behavior
+                var route = $(this).data('route'); // Get the route from the clicked link
 
-                var route = $(this).data('route');
-
+                // AJAX request to load page content
                 $.ajax({
                     url: route,
                     type: 'GET',
                     success: function(data) {
-                        $('#contentArea').html(data);
+                        $('#contentArea').html(
+                            data); // Insert the loaded data into the content area
+
+                        // Reinitialize dynamic components like date pickers if they exist
+                        if (typeof initDynamicComponents === 'function') {
+                            initDynamicComponents();
+                        }
                     },
                     error: function() {
                         $('#contentArea').html(
@@ -123,37 +150,75 @@
                     }
                 });
 
-                // Handle active sidebar link state
+                // Active link highlight
                 $('.admin-sidebar a, .accordion-body a').removeClass('active');
                 $(this).addClass('active');
             });
 
-            // Trigger default dashboard load
-            var dashboardLink = $('[data-route="{{ route('dashboard.page') }}"]');
-            dashboardLink.trigger('click');
-            dashboardLink.addClass('active');
+            // Check if we need to redirect to orders or services page
+            @if (session('success') == 'redirect_to_orders')
+                const ordersLink = $('[data-route="{{ route('orders.page') }}"]');
+                ordersLink.trigger('click').addClass('active');
+            @elseif (session('success') == 'redirect_to_service')
+                const servicesLink = $('[data-route="{{ route('adminservices.page') }}"]');
+                servicesLink.trigger('click').addClass('active');
+                $('#collapseServiceManage').collapse('show'); // Open the accordion section
+            @else
+                const dashboardLink = $('[data-route="{{ route('dashboard.page') }}"]');
+                dashboardLink.trigger('click').addClass('active');
+            @endif
 
-            // Add service form (unchanged)
+            // Add service form submission
             $(document).on('submit', '#addServiceForm', function(e) {
                 e.preventDefault();
                 let form = $(this)[0];
                 let formData = new FormData(form);
+
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function() {
+                    success: function(response) {
+                        // Hide modal
                         $('#addServiceModal').modal('hide');
-                        $('[data-route="{{ route('adminservices.page') }}"]').trigger('click');
+
+                        // Reset form
+                        form.reset();
+
+                        // Update the table body with the new HTML
+                        $('#serviceTableBody').html(response.html);
                     },
                     error: function(xhr) {
                         alert('Error: ' + xhr.responseText);
                     }
                 });
             });
+
+            // Filter services by status
+            $(document).on('change', '#statusFilter', function() {
+                const status = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('services.filter') }}",
+                    type: 'GET',
+                    data: {
+                        status
+                    },
+                    success: function(html) {
+                        $('#serviceTableBody').html(html);
+                    },
+                    error: function() {
+                        alert('Failed to filter services.');
+                    }
+                });
+
+            });
+
         });
     </script>
+
+
 
 @endsection

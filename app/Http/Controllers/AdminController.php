@@ -7,82 +7,117 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Sale;
+use App\Models\User;
+
 
 class AdminController extends Controller
 {
-    // Show the Admin Dashboard with services data
+    // Display the admin dashboard
+
     public function dashboard()
     {
-        return view('admin.dashboard');
+        // Total Sales: Amount due where payments are 'paid'
+        $totalSales = Sale::whereHas('payment', function ($query) {
+            $query->where('status', 'paid');
+        })->sum('amount_due');
+
+        // Total Users
+        $totalUsers = User::count();
+
+        // Total Orders
+        $totalOrders = Order::count();
+
+        // Pending Orders
+        $pendingOrders = Order::where('status', 'pending')->count();
+
+        // Orders in Progress
+        $onProgressOrders = Order::where('status', 'In progress')->count();
+
+        // Delivered Orders
+        $deliveredOrders = Order::where('status', 'completed')->count();
+
+        // Cancelled Orders
+        $cancelledOrders = Order::where('status', 'cancelled')->count();
+
+        // Total Services
+        $totalServices = Service::count();
+
+        return view('admin.dashboard', compact(
+            'totalSales',
+            'totalUsers',
+            'totalServices',
+            'totalOrders',
+            'pendingOrders',
+            'onProgressOrders',
+            'deliveredOrders',
+            'cancelledOrders'
+        ));
     }
 
-    // Show the Admin Services page
+
+    // Display the services management page with all services
     public function adminServices()
     {
         $services = Service::all();
         return view('admin.adminservices', compact('services'));
     }
 
-    // Show the Products page
+    // Display the products page
     public function products()
     {
         return view('admin.products');
     }
 
-    // Show the Orders page
+    // Display the orders page with all orders
     public function orders()
     {
         $orders = Order::all();
         return view('admin.orders', compact('orders'));
     }
+
+    // Display a specific order with its details and payment info
     public function viewOrder(Order $order)
     {
-        // Load the related data, including the payment information
         $order = Order::with(['orderDetails', 'sale.payment', 'sale.payment.cod', 'sale.payment.paypal'])
-            ->findOrFail($order->id);  // Ensure you're fetching the correct order with its related data
+            ->findOrFail($order->id);
 
-        // Pass the order data to the view
         return view('admin.order-view', compact('order'));
     }
 
-
-    // Show the POS page
+    // Display the POS (Point of Sale) page
     public function pos()
     {
         return view('admin.pos');
     }
 
-    // Show the Sales page
+    // Display the sales page
     public function sales()
     {
         return view('admin.sales');
     }
 
-    // Show the Tracking page
-    public function tracking()
-    {
-        return view('admin.tracking');
-    }
-
-    // Show the Customer page
+    // Display the customer page
     public function customer()
     {
-        return view('admin.customer');
+        $users = User::where('usertype', '!=', 1)->get();
+        return view('admin.customer', compact('users'));
     }
 
-    // Show the Reports page
+
+    // Display the reports page
     public function reports()
     {
         return view('admin.reports');
     }
 
-    // Show the Tasks page
+    // Display the employee management page (tasks)
     public function tasks()
     {
         return view('admin.employee-management');
     }
 
-    // Show the Shifts page
+    // Display the shifts management page
     public function shifts()
     {
         return view('admin.shift');

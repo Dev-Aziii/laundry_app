@@ -1,4 +1,5 @@
 <div class="d-flex justify-content-start pt-5">
+    <div id="#" style="position: fixed; top: 10px; right: 10px; z-index: 1050;"></div>
     <div class="content-area w-100 ms-auto px-4">
         <br>
         <div class="card">
@@ -13,69 +14,45 @@
                 </form>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Order Id</th>
-                            <th scope="col">Order By</th>
-                            <th scope="col">Order Date</th>
-                            <th scope="col">Pickup Date</th>
-                            <th scope="col">Delivery Date</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Order Status</th>
-                            <th scope="col" class="action-col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($orders as $order)
-                            @foreach ($order->orderDetails as $detail)
-                                <tr>
-                                    <td>#{{ $order->id }}</td>
-                                    <td>{{ $detail->name ?? 'N/A' }}</td>
-                                    <td>{{ $order->created_at->format('Y-m-d') }}</td>
-                                    <td>{{ $order->pickup_date ?? 'N/A' }}</td>
-                                    <td>{{ $order->delivery_date ?? 'N/A' }}</td>
-                                    <td>
-                                        ₱{{ number_format($detail->quantity * ($detail->service->price_per_kg ?? 0), 2) }}
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="badge bg-{{ $order->status === 'Completed'
-                                                ? 'success'
-                                                : ($order->status === 'Pending'
-                                                    ? 'warning'
-                                                    : ($order->status === 'In Progress'
-                                                        ? 'info'
-                                                        : 'secondary')) }}">
-                                            {{ $order->status }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-between">
-                                            <a href="#" class="btn btn-primary btn-sm order-btn" title="Address">
-                                                <i class="fas fa-address-card"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-primary btn-sm order-btn load-page"
-                                                data-route="{{ route('orders.view', $order->id) }}" title="View">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-danger btn-sm order-btn" title="Print">
-                                                <i class="fas fa-print"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @empty
-                            <tr>
-                                <td colspan="8" class="text-center text-muted">No orders found.</td>
-                            </tr>
-                        @endforelse
+                <div class="mb-3 d-flex align-items-center gap-2">
+                    <label for="statusFilter" class="form-label mb-0">Filter by Status:</label>
+                    <select id="statusFilter" class="form-select form-select-sm w-auto">
+                        <option value="">All</option>
+                        @foreach (['Pending', 'In Progress', 'Out for Delivery', 'Completed', 'Cancelled'] as $statusOption)
+                            <option value="{{ $statusOption }}">{{ $statusOption }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-                    </tbody>
+                <div id="ordersTableWrapper">
+                    @include('admin.partials.orders-table', ['orders' => $orders])
+                </div>
 
-                </table>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+
+        // Handle filter change
+        $('#statusFilter').on('change', function() {
+            let status = $(this).val();
+
+            $.ajax({
+                url: "{{ route('orders.filter') }}",
+                type: 'GET',
+                data: {
+                    status: status
+                },
+                success: function(response) {
+                    $('#ordersTableWrapper').html(response);
+                },
+                error: function() {
+                    alert('Error loading filtered orders.');
+                }
+            });
+        });
+    });
+</script>

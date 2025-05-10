@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-end pt-5">
-    <div class="card shadow-lg p-4 rounded-4 border-0 mt-5" style="width: 82%;">
+<div class="d-flex justify-content-start pt-5">
+    <div class="content-area w-100 ms-auto px-4">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0"> <i class="fas fa-table me-1"></i> Order Table</h5>
