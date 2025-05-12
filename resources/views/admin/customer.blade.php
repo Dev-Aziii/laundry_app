@@ -32,16 +32,13 @@
                                 <td>{{ $user->address ?? 'N/A' }}</td>
                                 <td>{{ $user->created_at->format('Y-m-d') }}</td>
                                 <td>
-                                    <div class="d-flex justify-content-between">
-                                        <button class="btn btn-primary btn-sm order-btn">
-                                            <i class="fas fa-user-edit"></i>
-                                        </button>
-                                        <button class="btn btn-primary btn-sm order-btn">
+                                    <div class="d-flex justify-content-center gap-3">
+                                        <a href="#" class="btn btn-primary btn-sm order-btn">
                                             <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm order-btn">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
+                                        </a>
+                                        <a href="#" class="btn btn-warning btn-sm order-btn">
+                                            <i class="fas fa-archive"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

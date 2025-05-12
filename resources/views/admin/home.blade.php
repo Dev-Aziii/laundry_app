@@ -16,7 +16,7 @@
             <!-- Logo and App Name -->
             <a class="navbar-brand" href="#">
                 <img src="images/bubbles.png" alt="Laundry Logo" class="navbar-logo">
-                <span class="navbar-text">WashingMashing</span>
+                <span class="navbar-text">WashingMashing - Admin</span>
             </a>
 
             <!-- User Profile Dropdown -->
@@ -50,6 +50,10 @@
                 <i class="bi bi-cart"></i> Orders
             </a>
 
+            <a href="#" class="load-page" data-route="{{ route('sales.page') }}">
+                <i class="bi bi-bar-chart"></i> Sales
+            </a>
+
             <!-- Service Management Section with Accordion -->
             <div class="accordion" id="serviceManageAccordion">
                 <div class="accordion-item">
@@ -76,30 +80,29 @@
                 </div>
             </div>
 
-            <!-- POS Management Section with Accordion -->
-            <div class="accordion" id="posManageAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingPosManage">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapsePosManage" aria-expanded="false" aria-controls="collapsePosManage">
-                            <i class="bi bi-credit-card"></i> POS Management
-                        </button>
-                    </h2>
-                    <div id="collapsePosManage" class="accordion-collapse collapse" aria-labelledby="headingPosManage"
-                        data-bs-parent="#posManageAccordion">
-                        <div class="accordion-body">
-                            <!-- POS Link -->
-                            <a href="#" class="load-page" data-route="{{ route('pos.page') }}">
-                                <i class="bi bi-cash-stack"></i> POS
-                            </a>
-                            <!-- Sales Link -->
-                            <a href="#" class="load-page" data-route="{{ route('sales.page') }}">
-                                <i class="bi bi-bar-chart"></i> Sales
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- POS Management Section with Accordion
+                                    <div class="accordion" id="posManageAccordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingPosManage">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapsePosManage" aria-expanded="false" aria-controls="collapsePosManage">
+                                                    <i class="bi bi-credit-card"></i> POS Management
+                                                </button>
+                                            </h2>
+                                            <div id="collapsePosManage" class="accordion-collapse collapse" aria-labelledby="headingPosManage"
+                                                data-bs-parent="#posManageAccordion">
+                                                <div class="accordion-body">
+                                                    <a href="#" class="load-page" data-route="{{ route('pos.page') }}">
+                                                        <i class="bi bi-cash-stack"></i> POS
+                                                    </a>
+                                                    <a href="#" class="load-page" data-route="{{ route('sales.page') }}">
+                                                        <i class="bi bi-bar-chart"></i> Sales
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                -->
 
             <!-- Other Sidebar Links -->
             <a href="#" class="load-page" data-route="{{ route('customer.page') }}">
@@ -108,7 +111,7 @@
             <a href="#" class="load-page" data-route="{{ route('reports.page') }}">
                 <i class="bi bi-file-earmark-bar-graph"></i> Reports
             </a>
-            <a href="#" class="load-page" data-route="{{ route('tasks.page') }}">
+            <a href="#" class="load-page" data-route="{{ route('employee.page') }}">
                 <i class="bi bi-person-workspace"></i> Employee Management
             </a>
             <a href="#" class="load-page" data-route="{{ route('shift.page') }}">
@@ -121,11 +124,11 @@
         </div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script>
         $(document).ready(function() {
-
             // Dynamic page loading with AJAX
             $(document).on('click', '.load-page', function(e) {
                 e.preventDefault(); // Prevent default anchor behavior

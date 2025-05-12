@@ -9,8 +9,9 @@
         <td class="align-middle">{{ $service->duration }}</td>
         <td class="align-middle">
             <div class="form-check form-switch d-flex justify-content-center">
-                <input class="form-check-input" type="checkbox" {{ $service->status === 'active' ? 'checked' : '' }}
-                    disabled>
+                <input class="form-check-input toggle-status" type="checkbox" data-id="{{ $service->id }}"
+                    {{ $service->status === 'active' ? 'checked' : '' }}>
+
             </div>
         </td>
         <td class="align-middle">
@@ -124,59 +125,211 @@
         </div>
     </div>
 </div>
+
+<!-- Status Change Confirmation Modal -->
+<div class="modal fade" id="statusChangeModal" tabindex="-1" aria-labelledby="statusChangeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Status Change</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to <span id="statusChangeAction"></span> this service?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmStatusChange" class="btn btn-danger">Yes, Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Toast Notification -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1055">
+    <div id="statusToast" class="toast align-items-center text-white bg-success border-0" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" id="toastMessage">
+                Status updated successfully!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function() {
         // Handle button clicks for Restore and Archive
-        $('[data-action="restore"], [data-action="archive"]').on('click', function() {
-            var action = $(this).data('action');
-            var serviceId = $(this).data('id');
-            var formId = action + 'Form-' + serviceId;
-            var actionUrl = $('#' + formId).attr('action');
+        $(document).ready(function() {
+            // Handles clicking on the restore or archive buttons
+            // Displays a confirmation modal for the selected action (restore/archive)
+            $('[data-action="restore"], [data-action="archive"]').on('click', function() {
+                var action = $(this).data('action');
+                var serviceId = $(this).data('id');
+                var formId = action + 'Form-' + serviceId;
+                var actionUrl = $('#' + formId).attr('action');
 
-            // Set the message based on action type
-            var message = action === 'restore' ? 'Are you sure you want to restore this service?' :
-                'Are you sure you want to archive this service?';
-            $('#confirmationMessage').text(message);
+                var message = action === 'restore' ?
+                    'Are you sure you want to restore this service?' :
+                    'Are you sure you want to archive this service?';
+                $('#confirmationMessage').text(message);
 
-            // Show the confirmation modal
-            $('#confirmationModal').modal('show');
+                $('#confirmationModal').modal('show');
 
-            // On confirm, submit the form
-            $('#confirmAction').off('click').on('click', function() {
-                $('#' + formId).submit();
+                // submit form
+                $('#confirmAction').off('click').on('click', function() {
+                    $('#' + formId).submit();
+                });
             });
-        });
 
-        $('.btn-edit').on('click', function() {
-            var serviceId = $(this).data('id');
+            // Handles clicking on the archive button
+            // Displays the confirmation modal for archiving a service
+            $('.btn-warning[data-action="archive"]').on('click', function() {
+                var serviceId = $(this).data('id');
+                var formId = 'archiveForm-' + serviceId;
+                var actionUrl = $('#' + formId).attr('action');
 
-            // Get the service data (you can make an AJAX request or pass the data directly)
-            var serviceData = {
-                id: serviceId,
-                service_name: $(this).data('name'),
-                description: $(this).data('description'),
-                price_per_kg: $(this).data('price'),
-                duration: $(this).data('duration'),
-                image: $(this).data('image')
+                // Set up the confirmation modal for archive
+                $('#confirmationMessage').text(
+                    'Are you sure you want to archive this service?');
+                $('#confirmationModal').modal('show');
+
+                // On confirm, submit the form
+                $('#confirmAction').off('click').on('click', function() {
+                    $('#' + formId).submit();
+                });
+            });
+
+            // Archive form submission handler with toast but does not refresh
+            /*
+            $('form[id^="archiveForm-"]').on('submit', function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+                var actionUrl = form.attr('action');
+                var serviceId = form.attr('id').split('-')[1];
+
+                $.ajax({
+                    url: actionUrl,
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function(response) {
+                        // Show toast
+                        $('#toastMessage').text('Service archived successfully!');
+                        const toast = new bootstrap.Toast(document.getElementById(
+                            'statusToast'));
+                        toast.show();
+
+                        // Optionally, remove or hide the row or update the UI to reflect the change
+                        $(`#service-row-${serviceId}`).fadeOut();
+
+                        // Close the confirmation modal
+                        $('#confirmationModal').modal('hide');
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error if needed
+                        console.log('Error archiving service:', error);
+                    }
+                });
+            });
+            */
+
+            // Handles clicking on the edit button for a service
+            // Populates the modal with the service data and displays it for editing
+            $('.btn-edit').on('click', function() {
+                var serviceId = $(this).data('id');
+
+                // Get the service data from the button's data attributes
+                var serviceData = {
+                    id: serviceId,
+                    service_name: $(this).data('name'),
+                    description: $(this).data('description'),
+                    price_per_kg: $(this).data('price'),
+                    duration: $(this).data('duration'),
+                    image: $(this).data('image')
+                };
+
+                // Set the values in the modal form
+                $('#editServiceId').val(serviceData.id);
+                $('#editServiceName').val(serviceData.service_name);
+                $('#editDescription').val(serviceData.description);
+                $('#editPrice').val(serviceData.price_per_kg);
+                $('#editDuration').val(serviceData.duration);
+
+                // Display the current image in the modal
+                if (serviceData.image) {
+                    $('#editThumbnailPreview').attr('src', '/storage/' + serviceData.image)
+                        .removeClass('d-none');
+                } else {
+                    $('#editThumbnailPreview').addClass('d-none');
+                }
+
+                // Open the modal for editing the service
+                $('#editServiceModal').modal('show');
+            });
+
+            // Handles the status change toggle for services
+            // Stores the details of the pending status change and shows a confirmation modal
+            let pendingStatusChange = {
+                id: null,
+                status: null
             };
 
-            // Set the values in the modal form
-            $('#editServiceId').val(serviceData.id);
-            $('#editServiceName').val(serviceData.service_name);
-            $('#editDescription').val(serviceData.description);
-            $('#editPrice').val(serviceData.price_per_kg);
-            $('#editDuration').val(serviceData.duration);
+            $('.toggle-status').on('change', function() {
+                const isChecked = $(this).is(':checked');
+                const serviceId = $(this).data('id');
+                const status = isChecked ? 'active' : 'inactive';
 
-            // Display the current image in the modal
-            if (serviceData.image) {
-                $('#editThumbnailPreview').attr('src', '/storage/' + serviceData.image).removeClass(
-                    'd-none');
-            } else {
-                $('#editThumbnailPreview').addClass('d-none');
-            }
+                // Store the status change details for confirmation
+                pendingStatusChange = {
+                    id: serviceId,
+                    status: status
+                };
 
-            // Open the modal
-            $('#editServiceModal').modal('show');
+                // Show the status change confirmation modal
+                $('#statusChangeAction').text(status === 'active' ? 'activate' : 'deactivate');
+                $('#statusChangeModal').modal('show');
+
+                // Revert the toggle until the status change is confirmed
+                $(this).prop('checked', !isChecked);
+            });
+
+            // Handles the confirmation of status change
+            // Sends an AJAX request to update the service status
+            $('#confirmStatusChange').on('click', function() {
+                const {
+                    id,
+                    status
+                } = pendingStatusChange;
+
+                $.ajax({
+                    url: `/services/${id}/status`,
+                    type: 'PATCH',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        status: status
+                    },
+                    success: function(response) {
+                        // Close the modal
+                        $('#statusChangeModal').modal('hide');
+
+                        // Show toast with success message
+                        $('#toastMessage').text(response.message ||
+                            'Status updated successfully!');
+                        const toast = new bootstrap.Toast(document.getElementById(
+                            'statusToast'));
+                        toast.show();
+
+                        // Update the toggle switch to reflect the new status
+                        $(`.toggle-status[data-id="${id}"]`).prop('checked',
+                            status === 'active');
+                    },
+                });
+            });
         });
     });
 </script>

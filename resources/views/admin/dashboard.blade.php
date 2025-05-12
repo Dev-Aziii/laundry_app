@@ -1,9 +1,7 @@
 <div class="d-flex justify-content-start pt-5">
     <div class="content-area w-100 ms-auto px-4">
         <div class="container-fluid py-4">
-            <h5 class="mb-4">Dashboard</h5>
-            <br>
-            <br>
+            <br><br>
             <style>
                 .icon-circle {
                     width: 80px;
@@ -27,8 +25,17 @@
                     border: none;
                     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
                 }
+
+                .overview-header {
+                    background-image: url('../images/water2.png');
+                    background-size: cover;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    padding-bottom: 65px;
+                }
             </style>
 
+            <!-- Overview Row -->
             <div class="row mb-4 g-3">
                 <!-- TOTAL SALES -->
                 <div class="col-lg-3 col-sm-6">
@@ -40,7 +47,6 @@
                             <h6 class="text-uppercase">Sales</h6>
                             <h3>${{ number_format($totalSales, 2) }}</h3>
                         </div>
-
                     </div>
                 </div>
 
@@ -54,7 +60,6 @@
                             <h6 class="text-uppercase">Users</h6>
                             <h3>{{ $totalUsers }}</h3>
                         </div>
-
                     </div>
                 </div>
 
@@ -68,7 +73,6 @@
                             <h6 class="text-uppercase">Employees</h6>
                             <h3>WALA PA!</h3>
                         </div>
-
                     </div>
                 </div>
 
@@ -82,85 +86,29 @@
                             <h6 class="text-uppercase">Services</h6>
                             <h3>{{ $totalServices }}</h3>
                         </div>
-
                     </div>
                 </div>
             </div>
 
-            <!-- Revenue + Overview Row -->
+            <!-- Overview + Sales Chart Row -->
             <div class="row g-4">
-                <!-- Revenue Section -->
+                <!-- Sales Chart Section -->
                 <div class="col-lg-8">
-                    <div class="card h-100">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Sales (Last 7 Days)</h5>
+                        </div>
                         <div class="card-body">
-                            <!-- Header Row: Title + Actions -->
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h5 class="mb-0">Revenue</h5>
-                                <div class="d-flex gap-2">
-                                    <!-- Filter Dropdown -->
-                                    <div class="dropdown">
-                                        <button class="btn btn-white border dropdown-toggle" type="button"
-                                            id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Filter
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-                                            <li><a class="dropdown-item" href="#">Today</a></li>
-                                            <li><a class="dropdown-item" href="#">This Week</a></li>
-                                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Download Button -->
-                                    <button class="btn btn-primary">Download</button>
-                                </div>
-                            </div>
-                            <hr>
-                            <!-- Table -->
-                            <div class="table-responsive mb-3">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>DELIVERY DATE</th>
-                                            <th>ORDER BY</th>
-                                            <th>QUANTITY</th>
-                                            <th>TOTAL</th>
-                                            <th>ACTION</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="5" class="text-center text-muted py-4">No orders found</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- Revenue Footer -->
-                            <div class="alert alert-warning mt-3">
-                                Sorry, today's revenue not found
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <h5>Total Revenue: <strong>$0</strong></h5>
-                            </div>
+                            <canvas id="salesChart" height="130"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <style>
-                    .overview-header {
-                        background-image: url('../images/water2.png');
-                        background-size: cover;
-                        background-position: center center;
-                        background-repeat: no-repeat;
-                        padding-bottom: 65px;
-                    }
-                </style>
                 <!-- Overview Section -->
                 <div class="col-lg-4">
-                    <div class="card h-100 border-0 shadow">
-                        <!-- Colored Header -->
+                    <div class="card h-97 border-0 shadow">
                         <div class="card-header overview-header">
-                            <h5 class="">Overview</h5>
+                            <h5>Overview</h5>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
@@ -228,7 +176,51 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($salesDates) !!},
+            datasets: [{
+                label: 'Sales ($)',
+                data: {!! json_encode($salesAmounts) !!},
+                backgroundColor: 'rgba(40, 167, 69, 0.5)',
+                borderColor: '#28a745',
+                borderWidth: 2,
+                borderRadius: 6,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return '$' + parseFloat(context.parsed.y).toFixed(2);
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + value;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>

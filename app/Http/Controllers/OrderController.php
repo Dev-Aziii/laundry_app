@@ -16,6 +16,20 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
+    // handles order cancellation
+    public function cancel(Order $order)
+    {
+        if (strtolower($order->status) !== 'pending') {
+            return redirect()->back()->with('error', 'Only orders with Pending status can be cancelled.');
+        }
+
+        $order->status = 'Cancelled';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order cancelled successfully.');
+    }
+
+
     public function filter(Request $request)
     {
         $orders = Order::with('orderDetails.service')
@@ -37,16 +51,30 @@ class OrderController extends Controller
             'payment_status' => 'nullable|in:Paid,Unpaid',
         ]);
 
+        // Update the order status and dates
         $order->update([
             'status' => $validated['status'],
             'pickup_date' => $validated['pickup_date'],
             'delivery_date' => $validated['delivery_date'],
         ]);
 
+        // Check if payment status is provided and update the payment and CodPayment if necessary
         if (!empty($validated['payment_status']) && $order->sale && $order->sale->payment) {
+            // Update payment status
             $order->sale->payment->update([
                 'status' => $validated['payment_status'],
             ]);
+
+            // If the payment status is 'Paid' and payment type is COD, update CodPayment's 'paid' field
+            if ($validated['payment_status'] === 'Paid' && $order->sale->payment->type === 'cash_on_delivery') {
+                $codPayment = $order->sale->payment->cod; // Get the associated CodPayment
+
+                if ($codPayment) {
+                    $codPayment->update([
+                        'paid' => true,  // Mark as paid
+                    ]);
+                }
+            }
         }
 
         return redirect()->back()
@@ -54,22 +82,25 @@ class OrderController extends Controller
             ->with('message', 'Order updated successfully.');
     }
 
-    // This method loads the order data and uses the DomPDF package to generate and download the PDF invoice.
-    public function downloadInvoice(Order $order)
-    {
-        $pdf = Pdf::loadView('user.summary-pdf', ['order' => $order]);
-        return $pdf->download('invoice_' . $order->ref_no . '.pdf');
-    }
 
     // This method loads all orders with related order details for the user.
-    public function order()
+    public function order(Request $request)
     {
-        $orders = Order::with(['orderDetails.service'])
-            ->where('user_id', Auth::id())
-            ->get();
+        $query = Order::with(['orderDetails.service'])
+            ->where('user_id', Auth::id());
+
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        } else {
+            // By default, exclude cancelled orders
+            $query->where('status', '!=', 'Cancelled');
+        }
+
+        $orders = $query->orderByDesc('created_at')->get();
 
         return view('user.orders', compact('orders'));
     }
+
 
     // This method fetches the most recent order and its related data for display.
     public function summary()
@@ -117,8 +148,7 @@ class OrderController extends Controller
         if ($request->payment_method === 'cash_on_delivery') {
             $sale = Sale::create([
                 'order_id' => $order->id,
-                'amount_due' => $this->calculateAmountDue($request),
-                'status' => 'pending',
+                'amount_due' => $this->calculateAmountDue($request)
             ]);
 
             $payment = Payment::create([

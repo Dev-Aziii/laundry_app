@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
+    // status 
+    public function updateStatus(Request $request, Service $service)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        $service->status = $validated['status'];
+        $service->save();
+
+        return response()->json(['message' => 'Status updated successfully.']);
+    }
+
     // archive service
     public function archiveService($id)
     {

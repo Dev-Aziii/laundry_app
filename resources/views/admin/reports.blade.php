@@ -10,10 +10,12 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="me-3">
-                            <input type="date" class="form-control form-control-sm" value="2025-03-26">
+                            <input type="date" class="form-control form-control-sm"
+                                value="{{ now()->subMonth()->toDateString() }}">
                         </div>
                         <div class="me-3">
-                            <input type="date" class="form-control form-control-sm" value="2025-04-27">
+                            <input type="date" class="form-control form-control-sm"
+                                value="{{ now()->toDateString() }}">
                         </div>
                         <button class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-filter me-2"></i>Filter
@@ -36,14 +38,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="5" class="text-center py-5">
-                                    <div class="text-muted">
-                                        <i class="fas fa-exclamation-circle fa-3x mb-3"></i>
-                                        <h4>Sorry! Revenue report not found</h4>
-                                    </div>
-                                </td>
-                            </tr>
+                            @forelse ($sales as $sale)
+                                <tr>
+                                    <td>{{ optional($sale->order)->delivery_date ?? 'N/A' }}</td>
+                                    <td>
+                                        @php
+                                            $details = $sale->order?->orderDetails?->first();
+                                        @endphp
+                                        {{ $details?->name ?? 'N/A' }}
+                                    </td>
+                                    <td>{{ $sale->order?->orderDetails?->sum('quantity') ?? 0 }}</td>
+                                    <td>₱{{ number_format($sale->amount_due, 2) }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+                                            <button class="btn btn-sm btn-primary order-btn">
+                                                <i class="fas fa-eye"></i>View
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center py-5">
+                                        <div class="text-muted">
+                                            <i class="fas fa-exclamation-circle fa-3x mb-3"></i>
+                                            <h4>Sorry! Revenue report not found</h4>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -55,7 +78,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center p-3 bg-light rounded-3 flex-grow-1 me-3">
                                 <h5 class="mb-0 me-2 text-muted">Total Revenue:</h5>
-                                <h4 class="mb-0 text-dark font-weight-bold">$0</h4>
+                                <h4 class="mb-0 text-dark font-weight-bold">₱{{ number_format($totalRevenue, 2) }}</h4>
                             </div>
                             <button class="btn btn-outline-secondary btn-sm">
                                 <i class="fas fa-print me-2"></i>Print Report
@@ -67,6 +90,3 @@
         </div>
     </div>
 </div>
-
-<!-- Add Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
