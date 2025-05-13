@@ -12,39 +12,41 @@
                 </form>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Created At</th>
-                            <th scope="col" class="action-col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
+                <div> class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                    <table class="table table-bordered">
+                        <thead>
                             <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->phone ?? 'N/A' }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->address ?? 'N/A' }}</td>
-                                <td>{{ $user->created_at->format('Y-m-d') }}</td>
-                                <td>
-                                    <div class="d-flex justify-content-center gap-3">
-                                        <a href="#" class="btn btn-primary btn-sm order-btn">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-warning btn-sm order-btn">
-                                            <i class="fas fa-archive"></i>
-                                        </a>
-                                    </div>
-                                </td>
+                                <th scope="col">Name</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col" class="action-col">Action</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->phone ?? 'N/A' }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->address ?? 'N/A' }}</td>
+                                    <td>{{ $user->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-3">
+                                            <a href="#" class="btn btn-primary btn-sm order-btn">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-warning btn-sm order-btn">
+                                                <i class="fas fa-archive"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

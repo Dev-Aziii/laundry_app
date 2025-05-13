@@ -81,80 +81,85 @@
                             <h6>Order Details</h6>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" class="fw-normal">Order Status</th>
-                                        <td class="fw-normal">
-                                            <select class="form-select" name="status" required>
-                                                @foreach (['Pending', 'In Progress', 'Out for Delivery', 'Completed', 'Cancelled'] as $statusOption)
-                                                    <option value="{{ $statusOption }}"
-                                                        {{ $order->status === $statusOption ? 'selected' : '' }}>
-                                                        {{ $statusOption }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
+                            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Order Status</th>
+                                            <td class="fw-normal">
+                                                <select class="form-select" name="status" required>
+                                                    @foreach (['Pending', 'In Progress', 'Out for Delivery', 'Completed', 'Cancelled'] as $statusOption)
+                                                        <option value="{{ $statusOption }}"
+                                                            {{ $order->status === $statusOption ? 'selected' : '' }}>
+                                                            {{ $statusOption }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <th scope="row" class="fw-normal">Assign Driver</th>
-                                        <td class="fw-normal">{{ $order->orderDetails->first()->driver_name ?? 'N/A' }}
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Assign Driver</th>
+                                            <td class="fw-normal">
+                                                {{ $order->orderDetails->first()->driver_name ?? 'N/A' }}
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <th scope="row" class="fw-normal">Payment Status</th>
-                                        <td class="fw-normal">
-                                            @if ($order->sale && $order->sale->payment)
-                                                {{ $order->sale->payment->status === 'Paid' ? 'Paid' : 'Unpaid' }}
-                                                @if ($order->sale->payment->status === 'Unpaid')
-                                                    <button
-                                                        class="btn {{ ($order->sale->payment->status ?? '') === 'Paid' ? 'btn-success' : 'btn-secondary' }} btn-sm ms-2"
-                                                        id="paidBtn" type="button" onclick="togglePaid(this)">
-                                                        {{ ($order->sale->payment->status ?? '') === 'Paid' ? 'Marked as Paid' : 'Mark as Paid' }}
-                                                    </button>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Payment Status</th>
+                                            <td class="fw-normal">
+                                                @if ($order->sale && $order->sale->payment)
+                                                    {{ $order->sale->payment->status === 'Paid' ? 'Paid' : 'Unpaid' }}
+                                                    @if ($order->sale->payment->status === 'Unpaid')
+                                                        <button
+                                                            class="btn {{ ($order->sale->payment->status ?? '') === 'Paid' ? 'btn-success' : 'btn-secondary' }} btn-sm ms-2"
+                                                            id="paidBtn" type="button" onclick="togglePaid(this)">
+                                                            {{ ($order->sale->payment->status ?? '') === 'Paid' ? 'Marked as Paid' : 'Mark as Paid' }}
+                                                        </button>
+                                                    @endif
+                                                @else
+                                                    Unpaid
+                                                    <button class="btn btn-secondary btn-sm ms-2" id="paidBtn"
+                                                        type="button">Mark as Paid</button>
                                                 @endif
-                                            @else
-                                                Unpaid
-                                                <button class="btn btn-secondary btn-sm ms-2" id="paidBtn"
-                                                    type="button">Mark as Paid</button>
-                                            @endif
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <th scope="row" class="fw-normal">Total Amount</th>
-                                        <td class="fw-normal">₱{{ number_format($order->sale->amount_due, 2) }}</td>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Total Amount</th>
+                                            <td class="fw-normal">₱{{ number_format($order->sale->amount_due, 2) }}
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <th scope="row" class="fw-normal">Discount</th>
-                                        <td class="fw-normal">₱{{ number_format($order->sale->discount ?? 0, 2) }}</td>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Discount</th>
+                                            <td class="fw-normal">₱{{ number_format($order->sale->discount ?? 0, 2) }}
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <th scope="row" class="fw-normal">Total Quantity (kg)</th>
-                                        <td class="fw-normal">{{ $order->orderDetails->first()->quantity }}</td>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Total Quantity (kg)</th>
+                                            <td class="fw-normal">{{ $order->orderDetails->first()->quantity }}</td>
+                                        </tr>
 
-                                    <tr>
-                                        <th scope="row" class="fw-normal">Picked Date</th>
-                                        <td class="fw-normal">
-                                            <input type="date" class="form-control" name="pickup_date"
-                                                value="{{ $order->pickup_date }}">
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Picked Date</th>
+                                            <td class="fw-normal">
+                                                <input type="date" class="form-control" name="pickup_date"
+                                                    value="{{ $order->pickup_date }}">
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <th scope="row" class="fw-normal">Delivery Date</th>
-                                        <td class="fw-normal">
-                                            <input type="date" class="form-control" name="delivery_date"
-                                                value="{{ $order->delivery_date }}">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        <tr>
+                                            <th scope="row" class="fw-normal">Delivery Date</th>
+                                            <td class="fw-normal">
+                                                <input type="date" class="form-control" name="delivery_date"
+                                                    value="{{ $order->delivery_date }}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 

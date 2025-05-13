@@ -25,7 +25,7 @@
                 </form>
 
                 <!-- Employee Table -->
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                     <table class="table table-hover align-middle table-bordered">
                         <thead class="table-light">
                             <tr>

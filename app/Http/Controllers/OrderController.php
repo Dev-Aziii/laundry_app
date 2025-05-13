@@ -16,6 +16,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
+    public function downloadInvoice(Order $order)
+    {
+        $pdf = Pdf::loadView('user.summary-pdf', ['order' => $order]);
+        return $pdf->download('invoice_' . $order->ref_no . '.pdf');
+    }
     // handles order cancellation
     public function cancel(Order $order)
     {

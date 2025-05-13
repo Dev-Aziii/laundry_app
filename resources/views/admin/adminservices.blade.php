@@ -20,7 +20,7 @@
 
                 </div>
                 <!-- Service Table -->
-                <div class="table-responsive mt-3">
+                <div class="table-responsive mt-3" style="max-height: 500px; overflow-y: auto;">
                     <table class="table table-bordered table-hover text-center">
                         <thead class="table-light">
                             <tr>
@@ -36,7 +36,6 @@
                         <tbody id="serviceTableBody">
                             @include('admin.partials.service-table', ['services' => $services])
                         </tbody>
-
                     </table>
                 </div>
             </div>

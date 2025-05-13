@@ -30,7 +30,7 @@ Route::group([], function () {
     Route::post('/registration', [AuthController::class, 'handleRegistration'])->name('registration.post');
     Route::get('/logout', [AuthController::class, 'logoutUser'])->name('logout')->middleware('auth');
     Route::put('/profile/update-details', [AuthController::class, 'updateUser'])->name('user.update-details');
-    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+    Route::put('/profile/update-password', [AuthController::class, 'updatePassword'])->name('user.update-password');
 });
 
 //

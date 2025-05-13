@@ -26,7 +26,7 @@
 
             <div class="card-body p-4">
                 <!-- Report Table -->
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                     <table class="table table-bordered table-hover">
                         <thead class="thead-light">
                             <tr>
