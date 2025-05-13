@@ -7,82 +7,146 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Sale;
+use App\Models\User;
+use App\Models\Employee;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 class AdminController extends Controller
 {
-    // Show the Admin Dashboard with services data
+    // Display the admin dashboard
+
+
     public function dashboard()
     {
-        return view('admin.dashboard');
+        // Existing metrics...
+        $totalSales = Sale::whereHas('payment', function ($query) {
+            $query->where('status', 'paid');
+        })->sum('amount_due');
+
+        $totalUsers = User::count();
+        $totalOrders = Order::count();
+        $pendingOrders = Order::where('status', 'pending')->count();
+        $onProgressOrders = Order::where('status', 'In progress')->count();
+        $deliveredOrders = Order::where('status', 'completed')->count();
+        $cancelledOrders = Order::where('status', 'cancelled')->count();
+        $totalServices = Service::count();
+
+        // 📊 Daily sales for last 7 days
+        $salesData = Sale::whereHas('payment', function ($query) {
+            $query->where('status', 'paid');
+        })
+            ->whereDate('created_at', '>=', now()->subDays(6)) // last 7 days
+            ->selectRaw('DATE(created_at) as date, SUM(amount_due) as total')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        // Format for chart.js
+        $salesDates = $salesData->pluck('date')->map(function ($date) {
+            return Carbon::parse($date)->format('M d');
+        });
+
+        $salesAmounts = $salesData->pluck('total');
+
+        return view('admin.dashboard', compact(
+            'totalSales',
+            'totalUsers',
+            'totalServices',
+            'totalOrders',
+            'pendingOrders',
+            'onProgressOrders',
+            'deliveredOrders',
+            'cancelledOrders',
+            'salesDates',
+            'salesAmounts'
+        ));
     }
 
-    // Show the Admin Services page
+
+
+    // Display the services management page with all services
     public function adminServices()
     {
-        $services = Service::all();
+        // Retrieve only active and non-soft-deleted services (i.e., not archived)
+        $services = Service::where('status', 'active')
+            ->whereNull('deleted_at')
+            ->get();
+
         return view('admin.adminservices', compact('services'));
     }
 
-    // Show the Products page
+
+
+    // Display the products page
     public function products()
     {
         return view('admin.products');
     }
 
-    // Show the Orders page
+    // Display the orders page with all orders
     public function orders()
     {
         $orders = Order::all();
         return view('admin.orders', compact('orders'));
     }
+
+    // Display a specific order with its details and payment info
     public function viewOrder(Order $order)
     {
-        // Load the related data, including the payment information
         $order = Order::with(['orderDetails', 'sale.payment', 'sale.payment.cod', 'sale.payment.paypal'])
-            ->findOrFail($order->id);  // Ensure you're fetching the correct order with its related data
+            ->findOrFail($order->id);
 
-        // Pass the order data to the view
         return view('admin.order-view', compact('order'));
     }
 
-
-    // Show the POS page
+    // Display the POS (Point of Sale) page
     public function pos()
     {
         return view('admin.pos');
     }
 
-    // Show the Sales page
-    public function sales()
+    // Display the sales page
+    public function sales(Request $request)
     {
-        return view('admin.sales');
+        $sales = Sale::whereHas('payment', function ($query) {
+            $query->where('status', 'paid');
+        })->with('payment')->get();
+
+        return view('admin.sales', compact('sales'));
     }
 
-    // Show the Tracking page
-    public function tracking()
-    {
-        return view('admin.tracking');
-    }
-
-    // Show the Customer page
+    // Display the customer page
     public function customer()
     {
-        return view('admin.customer');
+        $users = User::where('usertype', '!=', 1)->get();
+        return view('admin.customer', compact('users'));
     }
 
-    // Show the Reports page
+
+    // Display the reports page
     public function reports()
     {
-        return view('admin.reports');
+        $sales = Sale::with(['order.orderDetails', 'payment'])
+            ->whereHas('payment', fn($q) => $q->where('status', 'Paid'))
+            ->latest()
+            ->get();
+
+        $totalRevenue = $sales->sum('amount_due');
+
+        return view('admin.reports', compact('sales', 'totalRevenue'));
     }
 
-    // Show the Tasks page
-    public function tasks()
+    // Display the employee management page (tasks)
+    public function employee()
     {
-        return view('admin.employee-management');
+        $employees = Employee::latest()->get();
+        return view('admin.employee-management', compact('employees'));
     }
 
-    // Show the Shifts page
+    // Display the shifts management page
     public function shifts()
     {
         return view('admin.shift');

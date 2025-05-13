@@ -6,6 +6,11 @@
 
     <main>
         <div class="container pb-5 mb-sm-4 mt-5">
+            <div class="mb-3">
+                <a href="{{ route('services.page') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-arrow-left"></i> Back to home
+                </a>
+            </div>
             <div class="ps-3 mb-2">
                 <h3 class="fw-bold">Booking Process</h3>
             </div>

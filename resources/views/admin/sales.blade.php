@@ -1,91 +1,67 @@
-<div class="d-flex justify-content-end pt-5">
-    <div class="card shadow-lg p-4 rounded-4 border-0 mt-5" style="width: 82%;">
+<div class="d-flex justify-content-start pt-5">
+    <div class="content-area w-100 ms-auto px-4">
+        <br>
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> <i class="fas fa-table me-1"></i> Order Table</h5>
-                <form class="d-flex" action="#" method="GET">
-                    <input type="text" class="form-control form-control-sm" placeholder="Search Orders"
-                        aria-label="Search">
-                    <button class="btn btn-primary btn-sm order-btn ms-2" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
+                <h5 class="mb-0"><i class="fas fa-table me-1"></i> Sales Table</h5>
             </div>
+
             <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Order Id</th>
-                            <th scope="col">Order By</th>
-                            <th scope="col">Pickup Date</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Order Status</th>
-                            <th scope="col" class="action-col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#12345</td>
-                            <td>John Doe</td>
-                            <td>2025-04-01</td>
-                            <td>₱500.00</td>
-                            <td>Pending</td>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-address-card"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm order-btn">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#12346</td>
-                            <td>Jane Smith</td>
-                            <td>2025-04-02</td>
-                            <td>₱450.00</td>
-                            <td>Completed</td>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-address-card"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm order-btn">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#12347</td>
-                            <td>Samuel Lee</td>
-                            <td>2025-04-05</td>
-                            <td>₱600.00</td>
-                            <td>In Progress</td>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-address-card"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm order-btn">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-sm order-btn">
-                                        <i class="fas fa-print"></i>
-                                    </button>
-                                </div>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="mb-3 d-flex gap-3 align-items-center">
+                    <label for="statusFilter" class="form-label mb-0">Filter by Status:</label>
+                    <select id="statusFilter" class="form-select form-select-sm w-auto">
+                        <option value="">All</option>
+                        @foreach (['Paid', 'Unpaid', 'Failed'] as $statusOption)
+                            <option value="{{ strtolower($statusOption) }}"
+                                {{ strtolower($statusOption) == 'paid' ? 'selected' : '' }}>
+                                {{ $statusOption }}
+                            </option>
+                        @endforeach
+                    </select>
+
+
+                    <label for="typeFilter" class="form-label mb-0 ms-3">Filter by Payment Type:</label>
+                    <select id="typeFilter" class="form-select form-select-sm w-auto">
+                        <option value="">All</option>
+                        @foreach (['Cash_on_Delivery', 'PayPal'] as $typeOption)
+                            <option value="{{ strtolower($typeOption) }}">{{ $typeOption }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div id="salesTableWrapper">
+                    @include('admin.partials.sales-table', ['sales' => $sales])
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        function filterSales() {
+            let status = $('#statusFilter').val();
+            let type = $('#typeFilter').val();
+
+            $.ajax({
+                url: "{{ route('sales.filter') }}",
+                type: "GET",
+                data: {
+                    status: status,
+                    type: type
+                },
+                success: function(response) {
+                    $('#salesTableWrapper').html(response);
+                },
+                error: function() {
+                    alert('Error loading filtered sales.');
+                }
+            });
+        }
+
+        $('#statusFilter, #typeFilter').on('change', filterSales);
+
+        // Trigger filter on load to fetch 'paid'
+        filterSales();
+    });
+</script>

@@ -9,26 +9,12 @@
 <div id="home"></div>
 
 @if (session('success'))
-    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success">
-                    <h5 class="modal-title" id="statusModalLabel">Success</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{ session('success') }}
-                </div>
-            </div>
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+        <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var statusModal = new bootstrap.Modal(document.getElementById('statusModal'));
-            statusModal.show();
-        });
-    </script>
 @endif
 
 <x-header />

@@ -19,9 +19,22 @@
                         Filter History <i class="fa fa-filter"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
-                        <li><a class="dropdown-item" href="#">Approved Orders</a></li>
-                        <li><a class="dropdown-item" href="#">Pending Orders</a></li>
+                        <li><a class="dropdown-item" href="{{ route('Userorders.page') }}">All Orders</a></li>
+                        <li><a class="dropdown-item" href="{{ route('Userorders.page', ['status' => 'Pending']) }}">Pending
+                                Orders</a></li>
+                        <li><a class="dropdown-item" href="{{ route('Userorders.page', ['status' => 'In Progress']) }}">In
+                                Progress Orders</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('Userorders.page', ['status' => 'Out for Delivery']) }}">Out for Delivery</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('Userorders.page', ['status' => 'Completed']) }}">Completed
+                                Orders</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('Userorders.page', ['status' => 'Cancelled']) }}">Cancelled
+                                Orders</a></li>
                     </ul>
+
                 </div>
             </div>
 
@@ -39,9 +52,20 @@
                                         <span class="badge bg-info text-white">Ref: {{ $order->ref_no }}</span>
                                     </div>
                                     <span
-                                        class="badge bg-{{ $order->status === 'Approved' ? 'success' : ($order->status === 'Pending' ? 'info' : 'danger') }} ">
+                                        class="badge bg-{{ $order->status === 'Completed'
+                                            ? 'success'
+                                            : ($order->status === 'Pending'
+                                                ? 'warning'
+                                                : ($order->status === 'In Progress'
+                                                    ? 'info'
+                                                    : ($order->status === 'Out for Delivery'
+                                                        ? 'primary'
+                                                        : ($order->status === 'Cancelled'
+                                                            ? 'danger'
+                                                            : 'secondary')))) }} fs-6 px-3 py-2">
                                         {{ $order->status }}
                                     </span>
+
                                 </div>
 
                                 <p class="mb-1 mt-2">
@@ -66,25 +90,27 @@
                                         @default
                                             <span class="badge bg-secondary text-white ms-2">{{ $order->payment_method }}</span>
                                     @endswitch
-
                                 </p>
+                                <small class="text-muted">
+                                    Order made on: {{ $order->created_at->format('m/d/Y') }} by <a href="">You</a>
+                                </small>
 
-                                <div class="mb-2">
+                                <!-- ACTIONS -->
+                                <div class="d-flex justify-content-end">
                                     <a class="btn btn-sm btn-outline-success me-1" href="#" title="View">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-outline-danger me-1" href="#" title="Cancel">
+                                    <button type="button" class="btn btn-sm btn-outline-danger me-1" data-bs-toggle="modal"
+                                        data-bs-target="#cancelModal" data-order-id="{{ $order->id }}"
+                                        data-order-status="{{ $order->status }}" title="Cancel">
                                         <i class="fa fa-times"></i>
-                                    </a>
+                                    </button>
+
                                     <a href="{{ route('invoice.download', $order->id) }}"
                                         class="btn btn-sm btn-outline-primary" href="#" title="Print">
                                         <i class="fa fa-print"></i>
                                     </a>
                                 </div>
-
-                                <small class="text-muted">
-                                    Order made on: {{ $order->created_at->format('m/d/Y') }} by <a href="">You</a>
-                                </small>
                             </div>
                         </div>
                         <hr>
@@ -99,4 +125,51 @@
                 </div>
             </div>
         </div>
+        <br><br>
     @endsection
+
+    <!-- Cancel Confirmation Modal -->
+    <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST" id="cancelOrderForm">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelModalLabel">Cancel Order</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="cancelModalBody">
+                        Are you sure you want to cancel this order?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-danger" id="confirmCancelBtn">Yes, Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const cancelModal = document.getElementById('cancelModal');
+        cancelModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const orderId = button.getAttribute('data-order-id');
+            const status = button.getAttribute('data-order-status');
+            const modalBody = cancelModal.querySelector('#cancelModalBody');
+            const cancelForm = cancelModal.querySelector('#cancelOrderForm');
+            const confirmBtn = cancelModal.querySelector('#confirmCancelBtn');
+
+            if (status.trim().toLowerCase() !== 'pending') {
+                modalBody.innerHTML =
+                    `<div class="alert alert-warning mb-0">This order cannot be cancelled because its status is <strong>${status}</strong>.</div>`;
+                confirmBtn.disabled = true;
+                cancelForm.setAttribute('action', '#'); // Disable form submission
+            } else {
+                modalBody.innerHTML = 'Are you sure you want to cancel this order?';
+                confirmBtn.disabled = false;
+                cancelForm.setAttribute('action',
+                    `/orders/${orderId}/cancel`); // Set action to the correct cancel route
+            }
+        });
+    </script>

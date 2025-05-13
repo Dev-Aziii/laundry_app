@@ -9,23 +9,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rules\Password;
 use App\Models\Service;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
+    // Show the login form or redirect if already authenticated
     public function showLoginForm()
     {
         if (Auth::check()) {
-            if (Auth::user()->usertype == '1') {
-                return redirect()->route('admin');
-            } else {
-                return redirect()->route('user');
-            }
+            return Auth::user()->usertype == '1'
+                ? redirect()->route('admin')
+                : redirect()->route('user');
         }
 
         return view('auth.login');
     }
 
-
+    // Show the registration form or redirect if already authenticated
     public function showRegistrationForm()
     {
         if (Auth::check()) {
@@ -35,6 +35,7 @@ class AuthController extends Controller
         return view('auth.registration');
     }
 
+    // Handle user login request
     public function handleLogin(Request $request)
     {
         $request->validate([
@@ -45,11 +46,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $redirectUrl = $request->input('redirect_url', null);
+            $redirectUrl = $request->input('redirect_url');
 
             if ($redirectUrl) {
                 return redirect()->to($redirectUrl);
             }
+
             return Auth::user()->usertype == '1'
                 ? redirect()->route('admin')
                 : redirect()->route('user');
@@ -58,6 +60,7 @@ class AuthController extends Controller
         return redirect()->route('login')->with('error', 'Invalid email or password.');
     }
 
+    // Handle user registration request
     public function handleRegistration(Request $request)
     {
         $request->validate([
@@ -70,7 +73,7 @@ class AuthController extends Controller
 
         $data = $request->only('name', 'email', 'phone', 'address');
         $data['password'] = Hash::make($request->password);
-        $data['usertype'] = '0';
+        $data['usertype'] = '0'; // Default user type
 
         $user = User::create($data);
 
@@ -81,6 +84,7 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Registration successful. You can now log in.');
     }
 
+    // Log out the current user and invalidate session
     public function logoutUser(Request $request)
     {
         Auth::logout();
@@ -90,6 +94,7 @@ class AuthController extends Controller
         return redirect()->route('user');
     }
 
+    // Update authenticated user's profile information
     public function updateUser(Request $request)
     {
         $user = Auth::user();
@@ -111,6 +116,7 @@ class AuthController extends Controller
         return redirect()->route('user')->with('success', 'Changes saved successfully.');
     }
 
+    // Update authenticated user's password
     public function updatePassword(Request $request)
     {
         $request->validate([
@@ -126,6 +132,6 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('user')->with('success', 'Changes saved successfully.');
+        return redirect()->route('user')->with('success', 'Password updated successfully.');
     }
 }

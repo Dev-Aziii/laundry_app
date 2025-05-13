@@ -21,16 +21,93 @@ class OrderController extends Controller
         $pdf = Pdf::loadView('user.summary-pdf', ['order' => $order]);
         return $pdf->download('invoice_' . $order->ref_no . '.pdf');
     }
-
-    public function order()
+    // handles order cancellation
+    public function cancel(Order $order)
     {
-        $orders = Order::with(['orderDetails.service'])
-            ->where('user_id', Auth::id())
+        if (strtolower($order->status) !== 'pending') {
+            return redirect()->back()->with('error', 'Only orders with Pending status can be cancelled.');
+        }
+
+        $order->status = 'Cancelled';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order cancelled successfully.');
+    }
+
+
+    public function filter(Request $request)
+    {
+        $orders = Order::with('orderDetails.service')
+            ->when($request->status, fn($q) => $q->where('status', $request->status))
+            ->latest()
             ->get();
+
+        return view('admin.partials.orders-table', compact('orders'))->render();
+    }
+
+
+    // This method validates and updates the order.
+    public function updateOrderDetails(Request $request, Order $order)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:Pending,In Progress,Out for Delivery,Completed,Cancelled',
+            'pickup_date' => 'nullable|date',
+            'delivery_date' => 'nullable|date',
+            'payment_status' => 'nullable|in:Paid,Unpaid',
+        ]);
+
+        // Update the order status and dates
+        $order->update([
+            'status' => $validated['status'],
+            'pickup_date' => $validated['pickup_date'],
+            'delivery_date' => $validated['delivery_date'],
+        ]);
+
+        // Check if payment status is provided and update the payment and CodPayment if necessary
+        if (!empty($validated['payment_status']) && $order->sale && $order->sale->payment) {
+            // Update payment status
+            $order->sale->payment->update([
+                'status' => $validated['payment_status'],
+            ]);
+
+            // If the payment status is 'Paid' and payment type is COD, update CodPayment's 'paid' field
+            if ($validated['payment_status'] === 'Paid' && $order->sale->payment->type === 'cash_on_delivery') {
+                $codPayment = $order->sale->payment->cod; // Get the associated CodPayment
+
+                if ($codPayment) {
+                    $codPayment->update([
+                        'paid' => true,  // Mark as paid
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->back()
+            ->with('success', 'redirect_to_orders')
+            ->with('message', 'Order updated successfully.');
+    }
+
+
+    // This method loads all orders with related order details for the user.
+    public function order(Request $request)
+    {
+        $query = Order::with(['orderDetails.service'])
+            ->where('user_id', Auth::id());
+
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        } else {
+            // By default, exclude cancelled orders
+            $query->where('status', '!=', 'Cancelled');
+        }
+
+        $orders = $query->orderByDesc('created_at')->get();
 
         return view('user.orders', compact('orders'));
     }
 
+
+    // This method fetches the most recent order and its related data for display.
     public function summary()
     {
         $order = Order::with(['orderDetails.service', 'sale.payment.cod', 'sale.payment.paypal'])
@@ -40,6 +117,8 @@ class OrderController extends Controller
 
         return view('user.summary', compact('order'));
     }
+
+    // Handle the process of placing a new order.
     public function placeOrder(Request $request)
     {
         $request->validate([
@@ -71,12 +150,10 @@ class OrderController extends Controller
             'quantity' => $request->quantityInput,
         ]);
 
-
         if ($request->payment_method === 'cash_on_delivery') {
             $sale = Sale::create([
                 'order_id' => $order->id,
-                'amount_due' => $this->calculateAmountDue($request),
-                'status' => 'pending',
+                'amount_due' => $this->calculateAmountDue($request)
             ]);
 
             $payment = Payment::create([
@@ -94,6 +171,7 @@ class OrderController extends Controller
         return redirect()->route('summary.page');
     }
 
+    // This method creates a unique reference number using the current date and a random string.
     private function generateUniqueRefNo()
     {
         do {
@@ -105,6 +183,7 @@ class OrderController extends Controller
         return $ref_no;
     }
 
+    // This method finds the service by its ID and multiplies its price by the quantity ordered.
     private function calculateAmountDue(Request $request)
     {
         $service = Service::findOrFail($request->serviceIdInput);

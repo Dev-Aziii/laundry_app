@@ -1,24 +1,17 @@
-<div class="d-flex justify-content-start pt-5">
+<div class="d-flex justify-content-start">
     <div class="content-area w-100 ms-auto px-4">
         <br>
         <div class="container-fluid">
             <div class="row">
                 <!-- Services Section -->
                 <div class="col-md-8">
-                    <div class="card shadow-lg p-4 rounded-4 border-0 mt-5">
-                        <h2 class="mb-4">Point of Sale</h2>
-
-                        <div class="text-center">
-                            <h3 class="text-lg font-medium mb-4">Select Service</h3>
-
+                    <div class="card shadow-lg border-0 mt-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Select Service</h5>
+                        </div>
+                        <div class="card-body">
                             <div class="row">
-                                @foreach (['Dry Cleaning', 'Iron Only', 'Wash Only', 'Wash & Dry'] as $service)
-                                    <div class="col-md-6 mb-3">
-                                        <button class="btn btn-primary w-100 py-3">
-                                            {{ $service }}
-                                        </button>
-                                    </div>
-                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -26,8 +19,8 @@
 
                 <!-- Order Basket Section -->
                 <div class="col-md-4">
-                    <div class="card shadow-lg mt-5 h-100">
-                        <div class="card-header bg-primary text-white">
+                    <div class="card shadow-lg mt-4 h-100">
+                        <div class="card-header text-white rounded-top">
                             <h5 class="mb-0">Order Basket</h5>
                         </div>
                         <div class="card-body">
@@ -95,30 +88,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .card {
-        border-radius: 10px;
-    }
-
-    .btn-primary {
-        background-color: #4e73df;
-        border-color: #4e73df;
-    }
-
-    .btn-primary:hover {
-        background-color: #3a5ec0;
-        border-color: #3a5ec0;
-    }
-
-    .form-control {
-        border-radius: 5px;
-    }
-
-    .payment-methods .btn {
-        min-width: 80px;
-    }
-</style>
-
-<!-- Add Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
