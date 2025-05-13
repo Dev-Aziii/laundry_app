@@ -41,27 +41,16 @@
                             </span>
                         </td>
                         <td>
-                            <div class="d-flex justify-content-between">
-                                <a href="#" class="btn btn-primary btn-sm btn-summary order-btn" title="Summary"
-                                    data-refno="{{ $order->ref_no }}" data-orderby="{{ $detail->name ?? 'N/A' }}"
-                                    data-orderdate="{{ $order->created_at->format('Y-m-d') }}"
-                                    data-pickup="{{ $order->pickup_date ?? 'N/A' }}"
-                                    data-delivery="{{ $order->delivery_date ?? 'N/A' }}"
-                                    data-amount="₱{{ number_format($detail->quantity * ($detail->service->price_per_kg ?? 0), 2) }}"
-                                    data-status="{{ $order->status }}"
-                                    data-paymentstatus="{{ $order->payment_status ?? 'Unpaid' }}">
-                                    <i class="fas fa-address-card"></i>
-                                </a>
-
+                            <div class="d-flex justify-content-center gap-3">
                                 <a href="#" class="btn btn-primary btn-sm order-btn load-page"
                                     data-route="{{ route('orders.view', $order->id) }}" title="View">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-sm order-btn btn-print" title="Print"
-                                    data-orderid="{{ $order->id }}"
-                                    data-printurl="{{ route('invoice.download', $order->id) }}">
+                                <a href="{{ route('invoice.download', $order->id) }}" target="_blank"
+                                    class="btn btn-danger btn-sm order-btn" title="Print">
                                     <i class="fas fa-print"></i>
                                 </a>
+
                             </div>
                         </td>
                     </tr>

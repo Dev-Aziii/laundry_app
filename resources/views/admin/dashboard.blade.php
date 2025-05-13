@@ -45,7 +45,7 @@
                         </div>
                         <div class="card-body text-success">
                             <h6 class="text-uppercase">Sales</h6>
-                            <h3>${{ number_format($totalSales, 2) }}</h3>
+                            <h3>₱{{ number_format($totalSales, 2) }}</h3>
                         </div>
                     </div>
                 </div>
@@ -189,7 +189,7 @@
         data: {
             labels: {!! json_encode($salesDates) !!},
             datasets: [{
-                label: 'Sales ($)',
+                label: 'Sales (₱)',
                 data: {!! json_encode($salesAmounts) !!},
                 backgroundColor: 'rgba(40, 167, 69, 0.5)',
                 borderColor: '#28a745',
@@ -206,7 +206,7 @@
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return '$' + parseFloat(context.parsed.y).toFixed(2);
+                            return '₱' + parseFloat(context.parsed.y).toFixed(2);
                         }
                     }
                 }
@@ -216,7 +216,7 @@
                     beginAtZero: true,
                     ticks: {
                         callback: function(value) {
-                            return '$' + value;
+                            return '₱' + value;
                         }
                     }
                 }

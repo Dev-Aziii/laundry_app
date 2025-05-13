@@ -12,7 +12,7 @@
                 </form>
             </div>
             <div class="card-body">
-                <div> class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
