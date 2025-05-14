@@ -20,9 +20,12 @@
                         <td class="d-none">#{{ $order->id }}</td>
                         <td>{{ $order->ref_no }}</td>
                         <td>{{ $detail->name ?? 'N/A' }}</td>
-                        <td>{{ $order->created_at->format('Y-m-d') }}</td>
-                        <td>{{ $order->pickup_date ?? 'N/A' }}</td>
-                        <td>{{ $order->delivery_date ?? 'N/A' }}</td>
+                        <td>{{ $order->created_at->format('F d, Y') }}</td>
+                        <td>{{ $order->pickup_date ? \Carbon\Carbon::parse($order->pickup_date)->format('F d, Y') : 'N/A' }}
+                        </td>
+                        <td>{{ $order->delivery_date ? \Carbon\Carbon::parse($order->delivery_date)->format('F d, Y') : 'N/A' }}
+                        </td>
+
                         <td>
                             ₱{{ number_format($detail->quantity * ($detail->service->price_per_kg ?? 0), 2) }}
                         </td>

@@ -80,7 +80,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Admin - Sales
     Route::get('/admin/sales/filter', [SaleController::class, 'filter'])->name('sales.filter');
-    Route::get('/admin/reports/income', [ReportController::class, 'index'])->name('reports.income');
+    Route::get('/admin/reports/income', [ReportController::class, 'index'])->name('reports.page');
+    Route::get('/admin/reports/filter', [ReportController::class, 'getFilteredReports'])->name('admin.reports.filter');
+    Route::get('/admin/print', [ReportController::class, 'downloadRevenueReport'])->name('admin.reports.print');
 
     // Admin - Management Pages
     Route::get('/admin/products', [AdminController::class, 'products'])->name('products.page');
@@ -89,7 +91,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/sales', [AdminController::class, 'sales'])->name('sales.page');
     Route::get('/admin/tracking', [AdminController::class, 'tracking'])->name('tracking.page');
     Route::get('/admin/customer', [AdminController::class, 'customer'])->name('customer.page');
-    Route::get('/admin/reports', [AdminController::class, 'reports'])->name('reports.page');
     Route::get('/admin/tasks', [AdminController::class, 'employee'])->name('employee.page');
     Route::get('/admin/shifts', [AdminController::class, 'shifts'])->name('shift.page');
 
