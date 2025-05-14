@@ -23,13 +23,10 @@
                     <td>{{ ucfirst($sale->payment->type ?? 'N/A') }}</td>
                     <td>{{ ucfirst($sale->payment->status ?? 'Unknown') }}</td>
                     <td class="text-center">
-                        <div class="d-flex justify-content-center gap-3">
+                        <div class="d-flex justify-content-center">
                             <a href="#" class="btn btn-primary btn-sm order-btn load-page"
                                 data-route="{{ route('orders.view', $sale->order_id) }}" title="View">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-sm order-btn btn-print" title="Print">
-                                <i class="fas fa-print"></i>
+                                <i class="fas fa-eye"></i> View
                             </a>
                         </div>
                     </td>

@@ -19,7 +19,7 @@ class OrderController extends Controller
     public function downloadInvoice(Order $order)
     {
         $pdf = Pdf::loadView('user.summary-pdf', ['order' => $order]);
-        return $pdf->download('invoice_' . $order->ref_no . '.pdf');
+        return $pdf->stream('invoice_' . $order->ref_no . '.pdf');
     }
     // handles order cancellation
     public function cancel(Order $order)
@@ -94,17 +94,24 @@ class OrderController extends Controller
         $query = Order::with(['orderDetails.service'])
             ->where('user_id', Auth::id());
 
+        // If a status filter is provided
         if ($request->has('status')) {
-            $query->where('status', $request->status);
+            // If filtering by 'Cancelled', no exclusion is needed
+            if ($request->status === 'Cancelled') {
+                $query->where('status', 'Cancelled');
+            } else {
+                $query->where('status', $request->status);
+            }
         } else {
-            // By default, exclude cancelled orders
-            $query->where('status', '!=', 'Cancelled');
+            // Default to 'Pending' if no filter is applied
+            $query->where('status', 'Pending');
         }
 
         $orders = $query->orderByDesc('created_at')->get();
 
         return view('user.orders', compact('orders'));
     }
+
 
 
     // This method fetches the most recent order and its related data for display.

@@ -54,7 +54,7 @@
                     <a href="#" class="btn btn-secondary btn-sm load-page" data-route="{{ route('orders.page') }}">
                         <i class="fas fa-arrow-left me-1"></i> Back
                     </a>
-                    <a href="#" class="btn btn-danger btn-sm">
+                    <a href="{{ route('invoice.download', $order->id) }}" target="_blank" class="btn btn-danger btn-sm">
                         <i class="fas fa-print me-1"></i> Print
                     </a>
                 </div>

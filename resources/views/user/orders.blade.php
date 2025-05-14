@@ -19,7 +19,6 @@
                         Filter History <i class="fa fa-filter"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
-                        <li><a class="dropdown-item" href="{{ route('Userorders.page') }}">All Orders</a></li>
                         <li><a class="dropdown-item" href="{{ route('Userorders.page', ['status' => 'Pending']) }}">Pending
                                 Orders</a></li>
                         <li><a class="dropdown-item" href="{{ route('Userorders.page', ['status' => 'In Progress']) }}">In
@@ -92,22 +91,21 @@
                                     @endswitch
                                 </p>
                                 <small class="text-muted">
-                                    Order made on: {{ $order->created_at->format('m/d/Y') }} by <a href="">You</a>
+                                    Order made on: {{ $order->created_at->format('F d, Y') }} by <a href="">You</a>
                                 </small>
+
 
                                 <!-- ACTIONS -->
                                 <div class="d-flex justify-content-end">
-                                    <a class="btn btn-sm btn-outline-success me-1" href="#" title="View">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-sm btn-outline-danger me-1" data-bs-toggle="modal"
-                                        data-bs-target="#cancelModal" data-order-id="{{ $order->id }}"
-                                        data-order-status="{{ $order->status }}" title="Cancel">
+                                    <button type="button" class="btn btn-sm btn-outline-danger me-1 order-btn"
+                                        data-bs-toggle="modal" data-bs-target="#cancelModal"
+                                        data-order-id="{{ $order->id }}" data-order-status="{{ $order->status }}"
+                                        title="Cancel">
                                         <i class="fa fa-times"></i>
                                     </button>
 
                                     <a href="{{ route('invoice.download', $order->id) }}"
-                                        class="btn btn-sm btn-outline-primary" href="#" title="Print">
+                                        class="btn btn-sm btn-outline-primary order-btn" target="_blank" title="Print">
                                         <i class="fa fa-print"></i>
                                     </a>
                                 </div>
