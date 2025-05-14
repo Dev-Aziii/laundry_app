@@ -6,7 +6,7 @@
         </td>
         <td class="align-middle">{{ $service->description }}</td>
         <td class="align-middle">{{ number_format($service->price_per_kg, 2) }}</td>
-        <td class="align-middle">{{ $service->duration }}</td>
+        <td class="align-middle">{{ $service->duration }} days</td>
         <td class="align-middle">
             <div class="form-check form-switch d-flex justify-content-center">
                 <input class="form-check-input toggle-status" type="checkbox" data-id="{{ $service->id }}"

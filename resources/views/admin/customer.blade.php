@@ -13,7 +13,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered text-center">
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>

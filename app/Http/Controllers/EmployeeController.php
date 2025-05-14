@@ -26,18 +26,18 @@ class EmployeeController extends Controller
             'status' => 'Active',
         ]);
 
-        return redirect()->back()->with('success', 'Employee added successfully.');
+        return redirect()->back()->with('success', 'emp_added');
     }
 
     public function archive(Employee $employee)
     {
         $employee->update(['status' => 'Inactive']);
-        return redirect()->back()->with('success', 'Employee archived.');
+        return redirect()->back()->with('success', 'emp_added');
     }
 
     public function restore(Employee $employee)
     {
         $employee->update(['status' => 'Active']);
-        return redirect()->back()->with('success', 'Employee restored.');
+        return redirect()->back()->with('success', 'emp_added');
     }
 }

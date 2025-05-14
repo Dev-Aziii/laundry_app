@@ -32,13 +32,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="#">
+                    <a class="nav-link {{ request()->routeIs('about.page') ? 'active' : '' }}"
+                        href="{{ route('about.page') }}">
                         About Us
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="#">
-                        Contact
                     </a>
                 </li>
 

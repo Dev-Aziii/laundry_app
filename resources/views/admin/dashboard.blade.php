@@ -71,7 +71,7 @@
                         </div>
                         <div class="card-body text-warning">
                             <h6 class="text-uppercase">Employees</h6>
-                            <h3>WALA PA!</h3>
+                            <h3>{{ $totalEmployee }}</h3>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                 <div class="col-lg-8">
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">Sales (Last 7 Days)</h5>
+                            <h5 class="mb-0">Monthly Sales</h5>
                         </div>
                         <div class="card-body">
                             <canvas id="salesChart" height="130"></canvas>
@@ -129,7 +129,7 @@
                                     </div>
                                     <div class="d-flex flex-column">
                                         <h5 class="mb-1">{{ $totalOrders }}</h5>
-                                        <small class="text-muted">Orders</small>
+                                        <small class="text-muted">Bookings</small>
                                     </div>
                                 </div>
                                 <!-- Pending Orders -->
@@ -185,23 +185,26 @@
 <script>
     const ctx = document.getElementById('salesChart').getContext('2d');
     const salesChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: {!! json_encode($salesDates) !!},
+            labels: {!! json_encode($months) !!},
             datasets: [{
-                label: 'Sales (₱)',
-                data: {!! json_encode($salesAmounts) !!},
-                backgroundColor: 'rgba(40, 167, 69, 0.5)',
+                label: 'Monthly Sales (₱)',
+                data: {!! json_encode($salesPerMonth) !!},
+                backgroundColor: 'rgba(40, 167, 69, 0.2)',
                 borderColor: '#28a745',
-                borderWidth: 2,
-                borderRadius: 6,
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#28a745',
+                pointRadius: 4
             }]
         },
         options: {
             responsive: true,
             plugins: {
                 legend: {
-                    display: false
+                    display: true
                 },
                 tooltip: {
                     callbacks: {

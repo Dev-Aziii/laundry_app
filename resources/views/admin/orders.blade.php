@@ -4,7 +4,7 @@
         <br>
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> <i class="fas fa-table me-1"></i> Order Table</h5>
+                <h5 class="mb-0"> <i class="fas fa-table me-1"></i> Booking Table</h5>
                 <form class="d-flex" action="#" method="GET">
                     <input type="text" class="form-control form-control-sm" placeholder="Search Orders"
                         aria-label="Search">

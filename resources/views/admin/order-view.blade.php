@@ -99,13 +99,6 @@
                                         </tr>
 
                                         <tr>
-                                            <th scope="row" class="fw-normal">Assign Driver</th>
-                                            <td class="fw-normal">
-                                                {{ $order->orderDetails->first()->driver_name ?? 'N/A' }}
-                                            </td>
-                                        </tr>
-
-                                        <tr>
                                             <th scope="row" class="fw-normal">Payment Status</th>
                                             <td class="fw-normal">
                                                 @if ($order->sale && $order->sale->payment)

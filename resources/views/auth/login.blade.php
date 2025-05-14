@@ -55,3 +55,10 @@
     </div>
 
 @endsection
+
+<script>
+    // Set the time interval in milliseconds (e.g., 10 seconds)
+    setTimeout(function() {
+        location.reload(); // This will reload the current page
+    }, 10000); // 10000 ms = 10 seconds
+</script>
