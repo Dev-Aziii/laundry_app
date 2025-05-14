@@ -47,66 +47,65 @@
 
             <!-- Orders Link -->
             <a href="#" class="load-page" data-route="{{ route('orders.page') }}">
-                <i class="bi bi-cart"></i> Orders
+                <i class="bi bi-cart"></i> Bookings
             </a>
 
             <a href="#" class="load-page" data-route="{{ route('sales.page') }}">
                 <i class="bi bi-bar-chart"></i> Sales
             </a>
-
-            <!-- Service Management Section with Accordion -->
-            <div class="accordion" id="serviceManageAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingServiceManage">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseServiceManage" aria-expanded="false"
-                            aria-controls="collapseServiceManage">
-                            <i class="bi bi-gear"></i> Service Management
-                        </button>
-                    </h2>
-                    <div id="collapseServiceManage" class="accordion-collapse collapse"
-                        aria-labelledby="headingServiceManage" data-bs-parent="#serviceManageAccordion">
-                        <div class="accordion-body">
-                            <!-- Services Link -->
-                            <a href="#" class="load-page" data-route="{{ route('adminservices.page') }}">
-                                <i class="bi bi-tools"></i> Services
-                            </a>
-                            <!-- Products Link -->
-                            <a href="#" class="load-page" data-route="{{ route('products.page') }}">
-                                <i class="bi bi-box"></i> Products
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- POS Management Section with Accordion
-                                    <div class="accordion" id="posManageAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingPosManage">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapsePosManage" aria-expanded="false" aria-controls="collapsePosManage">
-                                                    <i class="bi bi-credit-card"></i> POS Management
-                                                </button>
-                                            </h2>
-                                            <div id="collapsePosManage" class="accordion-collapse collapse" aria-labelledby="headingPosManage"
-                                                data-bs-parent="#posManageAccordion">
-                                                <div class="accordion-body">
-                                                    <a href="#" class="load-page" data-route="{{ route('pos.page') }}">
-                                                        <i class="bi bi-cash-stack"></i> POS
-                                                    </a>
-                                                    <a href="#" class="load-page" data-route="{{ route('sales.page') }}">
-                                                        <i class="bi bi-bar-chart"></i> Sales
-                                                    </a>
-                                                </div>
+            <a href="#" class="load-page" data-route="{{ route('adminservices.page') }}">
+                <i class="bi bi-tools"></i> Services
+            </a>
+            <!-- Service Management Section with Accordion
+                                <div class="accordion" id="serviceManageAccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingServiceManage">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseServiceManage" aria-expanded="false"
+                                                aria-controls="collapseServiceManage">
+                                                <i class="bi bi-gear"></i> Service Management
+                                            </button>
+                                        </h2>
+                                        <div id="collapseServiceManage" class="accordion-collapse collapse"
+                                            aria-labelledby="headingServiceManage" data-bs-parent="#serviceManageAccordion">
+                                            <div class="accordion-body">
+                                                
+                                                <a href="#" class="load-page" data-route="{{ route('products.page') }}">
+                                                    <i class="bi bi-box"></i> Products
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                 -->
 
-            <!-- Other Sidebar Links -->
+            <!-- POS Management Section with Accordion
+                            <div class="accordion" id="posManageAccordion">
+                                <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingPosManage">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapsePosManage" aria-expanded="false" aria-controls="collapsePosManage">
+                                                                                                                <i class="bi bi-credit-card"></i> POS Management
+                                                                                                            </button>
+                                                                                                        </h2>
+                                                                                                        <div id="collapsePosManage" class="accordion-collapse collapse" aria-labelledby="headingPosManage"
+                                                                                                            data-bs-parent="#posManageAccordion">
+                                                                                                            <div class="accordion-body">
+                                                                                                                <a href="#" class="load-page" data-route="{{ route('pos.page') }}">
+                                                                                                                    <i class="bi bi-cash-stack"></i> POS
+                                                                                                                </a>
+                                                                                                                <a href="#" class="load-page" data-route="{{ route('sales.page') }}">
+                                                                                                                    <i class="bi bi-bar-chart"></i> Sales
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                         -->
+
+
             <a href="#" class="load-page" data-route="{{ route('customer.page') }}">
-                <i class="bi bi-person-lines-fill"></i> Customers
+                <i class="bi bi-person-lines-fill"></i> Users
             </a>
             <a href="#" class="load-page" data-route="{{ route('reports.page') }}">
                 <i class="bi bi-file-earmark-bar-graph"></i> Reports
@@ -114,9 +113,11 @@
             <a href="#" class="load-page" data-route="{{ route('employee.page') }}">
                 <i class="bi bi-person-workspace"></i> Employee Management
             </a>
-            <a href="#" class="load-page" data-route="{{ route('shift.page') }}">
-                <i class="bi bi-calendar-check"></i> Shift Assignments
-            </a>
+            <!-- Other Sidebar Links
+                <a href="#" class="load-page" data-route="{{ route('shift.page') }}">
+                    <i class="bi bi-calendar-check"></i> Shift Assignments
+                </a>
+                -->
         </div>
 
         <!-- Content Area -->
@@ -165,7 +166,10 @@
             @elseif (session('success') == 'redirect_to_service')
                 const servicesLink = $('[data-route="{{ route('adminservices.page') }}"]');
                 servicesLink.trigger('click').addClass('active');
-                $('#collapseServiceManage').collapse('show'); // Open the accordion section
+                $('#collapseServiceManage').collapse('show');
+            @elseif (session('success') == 'emp_added')
+                const empLink = $('[data-route="{{ route('employee.page') }}"]');
+                empLink.trigger('click').addClass('active');
             @else
                 const dashboardLink = $('[data-route="{{ route('dashboard.page') }}"]');
                 dashboardLink.trigger('click').addClass('active');

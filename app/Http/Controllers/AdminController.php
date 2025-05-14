@@ -17,11 +17,10 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     // Display the admin dashboard
-
-
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        // Existing metrics...
+        $selectedYear = $request->input('year', now()->year);
+
         $totalSales = Sale::whereHas('payment', function ($query) {
             $query->where('status', 'paid');
         })->sum('amount_due');
@@ -33,38 +32,51 @@ class AdminController extends Controller
         $deliveredOrders = Order::where('status', 'completed')->count();
         $cancelledOrders = Order::where('status', 'cancelled')->count();
         $totalServices = Service::count();
+        $totalEmployee = Employee::count();
 
-        // 📊 Daily sales for last 7 days
-        $salesData = Sale::whereHas('payment', function ($query) {
-            $query->where('status', 'paid');
-        })
-            ->whereDate('created_at', '>=', now()->subDays(6)) // last 7 days
-            ->selectRaw('DATE(created_at) as date, SUM(amount_due) as total')
-            ->groupBy('date')
-            ->orderBy('date')
+        $salesData = DB::table('payments')
+            ->join('sales', 'payments.sale_id', '=', 'sales.id')
+            ->where('payments.status', 'paid')
+            ->whereYear('payments.updated_at', $selectedYear)
+            ->selectRaw('MONTH(payments.updated_at) as month, SUM(sales.amount_due) as total')
+            ->groupBy('month')
+            ->orderBy('month')
             ->get();
 
-        // Format for chart.js
-        $salesDates = $salesData->pluck('date')->map(function ($date) {
-            return Carbon::parse($date)->format('M d');
+        $months = collect(range(1, 12))->map(function ($month) {
+            return Carbon::create()->month($month)->format('M');
         });
 
-        $salesAmounts = $salesData->pluck('total');
+        $salesPerMonth = $months->map(function ($_, $index) use ($salesData) {
+            $monthNumber = $index + 1;
+            $monthlySale = $salesData->firstWhere('month', $monthNumber);
+            return $monthlySale ? $monthlySale->total : 0;
+        });
+
+        // For the dropdown
+        $availableYears = DB::table('payments')
+            ->selectRaw('YEAR(updated_at) as year')
+            ->where('status', 'paid')
+            ->distinct()
+            ->orderByDesc('year')
+            ->pluck('year');
 
         return view('admin.dashboard', compact(
             'totalSales',
             'totalUsers',
+            'totalEmployee',
             'totalServices',
             'totalOrders',
             'pendingOrders',
             'onProgressOrders',
             'deliveredOrders',
             'cancelledOrders',
-            'salesDates',
-            'salesAmounts'
+            'months',
+            'salesPerMonth',
+            'availableYears',
+            'selectedYear'
         ));
     }
-
 
 
     // Display the services management page with all services

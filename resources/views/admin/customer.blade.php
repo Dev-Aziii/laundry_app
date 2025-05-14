@@ -12,8 +12,8 @@
                 </form>
             </div>
             <div class="card-body">
-                <div> class="table-responsive" style="max-height: 500px; overflow-y: auto;">
-                    <table class="table table-bordered">
+                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                    <table class="table table-bordered text-center">
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
@@ -33,10 +33,7 @@
                                     <td>{{ $user->address ?? 'N/A' }}</td>
                                     <td>{{ $user->created_at->format('Y-m-d') }}</td>
                                     <td>
-                                        <div class="d-flex justify-content-center gap-3">
-                                            <a href="#" class="btn btn-primary btn-sm order-btn">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
+                                        <div class="d-flex justify-content-center">
                                             <a href="#" class="btn btn-warning btn-sm order-btn">
                                                 <i class="fas fa-archive"></i>
                                             </a>

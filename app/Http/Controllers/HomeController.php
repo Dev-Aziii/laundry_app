@@ -41,6 +41,11 @@ class HomeController extends Controller
         return view('user.services');
     }
 
+    public function aboutPage()
+    {
+        return view('user.about');
+    }
+
     // Show the booking page with all available services
     public function bookingPage()
     {

@@ -11,11 +11,12 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\EmployeeController;
 //
 // ==========================
-// Public Routes
+// Public Routes / user
 // ==========================
-Route::group([], function () {
+Route::group(['middleware' => 'is.admin'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('user');
     Route::get('/services', [HomeController::class, 'servicesPage'])->name('services.page');
+    Route::get('/about', [HomeController::class, 'aboutPage'])->name('about.page');
     Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking.page');
 });
 
@@ -23,11 +24,16 @@ Route::group([], function () {
 // ==========================
 // Authentication Routes
 // ==========================
+Route::group(
+    ['middleware' => 'guest.only'],
+    function () {
+        Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [AuthController::class, 'handleLogin'])->name('login.post');
+        Route::get('/registration', [AuthController::class, 'showRegistrationForm'])->name('registration');
+        Route::post('/registration', [AuthController::class, 'handleRegistration'])->name('registration.post');
+    }
+);
 Route::group([], function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'handleLogin'])->name('login.post');
-    Route::get('/registration', [AuthController::class, 'showRegistrationForm'])->name('registration');
-    Route::post('/registration', [AuthController::class, 'handleRegistration'])->name('registration.post');
     Route::get('/logout', [AuthController::class, 'logoutUser'])->name('logout')->middleware('auth');
     Route::put('/profile/update-details', [AuthController::class, 'updateUser'])->name('user.update-details');
     Route::put('/profile/update-password', [AuthController::class, 'updatePassword'])->name('user.update-password');
@@ -35,15 +41,15 @@ Route::group([], function () {
 
 //
 // ==========================
-// User Profile Routes
+// User Profile Routes / user
 // ==========================
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'is.admin'], function () {
     Route::get('/profile-user', [HomeController::class, 'userProfile'])->name('profile.show');
 });
 
 //
 // ==========================
-// Orders Routes
+// Orders Routes / user
 // ==========================
 Route::group([], function () {
     Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('placeOrder');
@@ -59,7 +65,7 @@ Route::group([], function () {
 // ==========================
 // Admin Routes
 // ==========================
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin', [HomeController::class, 'adminDashboard'])->name('admin');
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('dashboard.page');
 

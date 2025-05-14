@@ -27,7 +27,7 @@
                 <!-- Employee Table -->
                 <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                     <table class="table table-hover align-middle table-bordered">
-                        <thead class="table-light">
+                        <thead class="table-light text-center">
                             <tr>
                                 <th scope="col">Employee ID</th>
                                 <th scope="col">Name</th>

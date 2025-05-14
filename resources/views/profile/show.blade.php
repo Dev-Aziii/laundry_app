@@ -43,18 +43,7 @@
                         <!-- General Tab -->
                         <div class="tab-pane fade {{ $activeTab == 'account-general' ? 'show active' : '' }}"
                             id="account-general">
-                            <div class="card-body media align-items-center">
-                                <img src="images\avatar\information.png" alt="" class="d-block ui-w-80">
-                                <div class="media-body ml-4">
-                                    <label class="btn btn-outline-primary">
-                                        Upload new photo
-                                        <input type="file" class="account-settings-fileinput">
-                                    </label>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-primary md-btn-flat">Reset</button>
-                                    <div class="">Allowed JPG, GIF or PNG. Max size of 800K</div>
-                                </div>
-                            </div>
+
                             <div class="card-body">
                                 <form id="generalForm" action="{{ route('user.update-details') }}" method="POST">
                                     @csrf

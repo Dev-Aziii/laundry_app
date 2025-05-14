@@ -4,7 +4,7 @@
         <br>
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"> <i class="fas fa-table me-1"></i> Order Table</h5>
+                <h5 class="mb-0"> <i class="fas fa-table me-1"></i> Booking Table</h5>
                 <form class="d-flex" action="#" method="GET">
                     <input type="text" class="form-control form-control-sm" placeholder="Search Orders"
                         aria-label="Search">
@@ -19,9 +19,12 @@
                     <select id="statusFilter" class="form-select form-select-sm w-auto">
                         <option value="">All</option>
                         @foreach (['Pending', 'In Progress', 'Out for Delivery', 'Completed', 'Cancelled'] as $statusOption)
-                            <option value="{{ $statusOption }}">{{ $statusOption }}</option>
+                            <option value="{{ $statusOption }}" {{ $statusOption === 'Pending' ? 'selected' : '' }}>
+                                {{ $statusOption }}
+                            </option>
                         @endforeach
                     </select>
+
                 </div>
 
                 <div id="ordersTableWrapper">
@@ -35,11 +38,8 @@
 
 <script>
     $(document).ready(function() {
-
-        // Handle filter change
-        $('#statusFilter').on('change', function() {
-            let status = $(this).val();
-
+        // Reusable fetch function
+        function fetchOrders(status) {
             $.ajax({
                 url: "{{ route('orders.filter') }}",
                 type: 'GET',
@@ -53,6 +53,16 @@
                     alert('Error loading filtered orders.');
                 }
             });
+        }
+
+        // Initial load with "Pending"
+        let initialStatus = $('#statusFilter').val();
+        fetchOrders(initialStatus);
+
+        // On filter change
+        $('#statusFilter').on('change', function() {
+            let status = $(this).val();
+            fetchOrders(status);
         });
     });
 </script>
