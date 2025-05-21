@@ -50,7 +50,7 @@
                                     href="{{ route('profile.show') }}">
                                     Account</a></li>
                             <li><a class="dropdown-item {{ request()->routeIs('profile.show') ? 'active' : '' }}"
-                                    href="{{ route('Userorders.page') }}">Orders</a></li>
+                                    href="{{ route('Userorders.page') }}">Bookings</a></li>
                             <li>
                                 <button type="button" class="dropdown-item text-danger" data-bs-toggle="modal"
                                     data-bs-target="#logoutModal" onclick="event.stopPropagation();">

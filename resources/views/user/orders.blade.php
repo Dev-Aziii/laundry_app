@@ -12,7 +12,7 @@
         </div>
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <strong>Order History</strong>
+                <strong>Booking History</strong>
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="filterDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
